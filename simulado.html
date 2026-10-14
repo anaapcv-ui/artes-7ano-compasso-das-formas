@@ -1,0 +1,360 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Simulado · Compasso das Formas · Arte 7º</title>
+<style>
+  :root{--palco:#0f0e14;--palco2:#1a1823;--aco:#2b2838;--aco2:#3b374c;--ambar:#f2a93b;--magenta:#ff4d8d;--ciano:#35d0e0;--verde:#3ddc84;--vermelho:#e0403f;--texto:#efeaf2;--cinza:#9a94a8}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:radial-gradient(1100px 480px at 50% -10%,#0b1a3a,#0f0e14 60%),var(--palco);color:var(--texto);line-height:1.6;padding-bottom:60px}
+  header{background:linear-gradient(120deg,#0b1a3a,#10264f);padding:26px 18px;text-align:center;box-shadow:0 4px 18px rgba(0,0,0,.5);border-bottom:6px solid var(--vermelho)}
+  header .selo{font-size:.78rem;letter-spacing:2px;color:#c9d6f5;text-transform:uppercase}
+  header h1{font-size:1.5rem;margin:6px 0 2px}
+  header p{color:#dbe4fa;font-size:.92rem}
+  .wrap{max-width:820px;margin:0 auto;padding:16px}
+  .barra-nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:16px 0}
+  .barra-nav a{background:var(--palco2);color:var(--texto);text-decoration:none;padding:7px 12px;border-radius:20px;font-size:.85rem;border:1px solid var(--aco)}
+  .barra-nav a.on{background:var(--vermelho);color:#fff;font-weight:bold}
+  .intro{background:var(--palco2);border:1px solid var(--aco);border-radius:14px;padding:16px;margin-bottom:16px}
+  .intro h2{color:#ff8a89;font-size:1.1rem;margin-bottom:8px}
+  .painel{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;background:var(--palco2);border:1px solid var(--aco);border-radius:12px;padding:10px 14px;margin-bottom:16px;font-size:.85rem}
+  .painel .btns{display:flex;gap:6px;flex-wrap:wrap}
+  button{cursor:pointer;font-family:inherit}
+  .mini{background:var(--palco);color:var(--texto);border:1px solid var(--aco2);border-radius:8px;padding:6px 10px;font-size:.8rem}
+  .codigo{background:linear-gradient(120deg,#163a2a,#1b4d36);border:2px solid var(--verde);border-radius:14px;padding:16px;text-align:center;margin-bottom:16px;display:none}
+  .codigo.show{display:block}
+  .codigo .cod{font-size:1.8rem;font-weight:bold;letter-spacing:3px;color:#8fe0b4;margin:6px 0}
+  .progresso{height:10px;background:var(--aco);border-radius:6px;overflow:hidden;margin-bottom:16px}
+  .progresso div{height:100%;background:var(--vermelho);width:0;transition:width .3s}
+  .q{background:var(--palco2);border:1px solid var(--aco);border-radius:16px;padding:16px;margin-bottom:14px}
+  .q .num{color:#ff8a89;font-weight:bold;font-size:.8rem;letter-spacing:1px;text-transform:uppercase}
+  .q .tipo{float:right;font-size:.7rem;color:#fff;border-radius:10px;padding:2px 8px;background:#2a3a5a}
+  .q .tipo.som{background:#5a2a7a}.q .tipo.rom{background:#1f5a4a}.q .tipo.dis{background:#7a3a1a}
+  .q h3{font-size:1rem;margin:6px 0 10px;font-weight:600}
+  .afirm{background:#141220;border-left:3px solid var(--aco2);padding:8px 12px;margin:6px 0;border-radius:0 8px 8px 0;font-size:.93rem}
+  .afirm .v{float:right;font-size:.75rem;color:var(--cinza)}
+  .afirm.ok{border-left-color:var(--verde)}.afirm.no{border-left-color:#777;color:#aaa}
+  .alt{display:block;background:#141220;border:1px solid var(--aco2);border-radius:10px;padding:10px 12px;margin:6px 0;cursor:pointer}
+  .alt:hover{border-color:#ff8a89}
+  .alt input{margin-right:8px}
+  .alt.sel{border-color:#ff8a89;background:#2a1620}
+  .alt.certa{border-color:var(--verde);background:#0e2b1f}
+  .alt.errada{border-color:#555;background:#1c1c22;color:#aaa}
+  .alt.marcada-errada{border-color:var(--vermelho);background:#3a1414}
+  .exp{margin-top:8px;font-size:.88rem;padding:8px 10px;border-radius:8px;background:#141220;border-left:3px solid var(--ambar);display:none}
+  .exp.show{display:block}
+  .soma input{width:110px;padding:9px;border-radius:8px;border:1px solid var(--aco2);background:#0a0910;color:var(--texto);font-size:1.05rem;text-align:center}
+  .soma .lab{font-size:.85rem;color:var(--cinza);margin-left:8px}
+  textarea{width:100%;min-height:90px;background:#0a0910;color:var(--texto);border:1px solid var(--aco2);border-radius:8px;padding:9px;font-family:inherit;font-size:.95rem;resize:vertical}
+  .modelo{margin-top:10px;padding:10px 12px;background:#0e2b1f;border:1px solid var(--verde);border-radius:8px;font-size:.9rem;display:none}
+  .modelo.show{display:block}
+  .enviar{width:100%;background:var(--vermelho);color:#fff;border:none;border-radius:12px;padding:14px;font-size:1.05rem;font-weight:bold;margin:10px 0}
+  .enviar:disabled{background:#2a2636;color:#6f6a7c;cursor:not-allowed}
+  .gab{background:var(--palco2);border:1px dashed var(--ciano);border-radius:14px;padding:16px;margin:16px 0;display:none}
+  .gab.show{display:block}
+  .gab input{padding:9px;border-radius:8px;border:1px solid var(--aco2);background:#0a0910;color:var(--texto);font-size:1rem;width:180px;text-transform:uppercase}
+  .gab button{background:var(--ciano);color:#04232a;border:none;border-radius:8px;padding:9px 14px;font-weight:bold;margin-left:6px}
+  .gab .msg{margin-top:8px;font-size:.9rem}
+  .fim{background:linear-gradient(120deg,#1b2a1f,#163a2a);border:2px solid var(--verde);border-radius:16px;padding:18px;margin-top:18px;text-align:center}
+  .fim h3{color:#8fe0b4;margin-bottom:8px}
+  .fim a{display:inline-block;margin-top:8px;background:var(--verde);color:#04231a;text-decoration:none;font-weight:bold;padding:11px 20px;border-radius:10px}
+  .modal-bg{display:none;position:fixed;inset:0;background:rgba(5,4,8,.96);z-index:50;align-items:center;justify-content:center;padding:16px}
+  .modal-bg.show{display:flex}
+  .modal{background:var(--palco2);border:1px solid var(--ciano);border-radius:14px;padding:22px;max-width:440px;text-align:center}
+  .modal p{margin-bottom:14px}
+  .modal .big{font-size:2.2rem}
+  .modal a,.modal button{display:inline-block;background:var(--ciano);color:#04232a;border:none;border-radius:8px;padding:10px 18px;font-weight:bold;text-decoration:none}
+  .rodape{text-align:center;color:var(--cinza);font-size:.8rem;margin-top:24px}
+</style>
+</head>
+<body>
+<header>
+  <div class="selo">Compasso das Formas · Arte 7º ano · CCF</div>
+  <h1>📝 Simulado</h1>
+  <p>25 questões no estilo da prova · múltipla escolha, somatório, números romanos e discursiva · Código SIM</p>
+</header>
+
+<div class="wrap">
+  <nav class="barra-nav" id="nav">
+    <a href="leitura-guiada.html">📖 Leitura Guiada</a>
+    <a href="quiz.html">🎯 Quiz</a>
+    <a href="resumo.html">🗺️ Resumo</a>
+    <a class="on" href="simulado.html">📝 Simulado</a>
+    <a href="index.html">🏠 Início</a>
+  </nav>
+
+  <div class="codigo" id="codigo"><div>Seu código de liberação</div><div class="cod" id="cod"></div><div id="codtxt"></div></div>
+
+  <div class="intro">
+    <h2>📝 Valendo!</h2>
+    <p>Faça como se fosse a prova: <b>25 questões</b>, todas obrigatórias. Nas de <b>somatório</b>, some os números das afirmativas corretas. Na <b>discursiva</b>, escreva com as suas palavras (os pais corrigem com a resposta-modelo do gabarito). Depois de enviar, as respostas travam e sai o código <b>SIM</b>.</p>
+  </div>
+
+  <div class="painel">
+    <span id="salvo">💾 Progresso salvo automaticamente.</span>
+    <div class="btns">
+      <button class="mini" onclick="exportar()">📥 Exportar</button>
+      <button class="mini" onclick="document.getElementById('imp').click()">📤 Importar</button>
+      <input type="file" id="imp" accept="application/json" style="display:none" onchange="importar(event)">
+      <button class="mini" onclick="pedirZerar()">🗑️ Zerar tudo</button>
+    </div>
+  </div>
+
+  <div class="progresso"><div id="barra"></div></div>
+  <div id="questoes"></div>
+  <button class="enviar" id="btn-enviar" onclick="enviar()" disabled>📨 Enviar simulado (responda todas)</button>
+
+  <div class="gab" id="gab">
+    <b>🔑 Gabarito comentado:</b> digite o código SIM que apareceu no topo.<br>
+    <input id="gab-in" placeholder="SIM-XX-YY"><button onclick="abrirGab()">Ver gabarito</button>
+    <div class="msg" id="gab-msg"></div>
+  </div>
+
+  <div class="fim" id="fim" style="display:none">
+    <h3>🏁 Trilha completa!</h3>
+    <p>Você percorreu os quatro materiais na ordem. Agora tudo fica aberto para revisar quantas vezes quiser até a prova.</p>
+    <a href="index.html">🏠 Voltar ao início</a>
+  </div>
+
+  <div class="rodape">Feito com carinho para o jovem aprendiz. 🥁 Boa prova!</div>
+</div>
+
+<div class="modal-bg" id="lock">
+  <div class="modal">
+    <div class="big">🔒</div>
+    <p><b>Esta etapa ainda está trancada.</b></p>
+    <p id="lock-txt">Para abrir o Simulado, leia o Resumo até o fim.</p>
+    <a href="index.html">Voltar ao início</a>
+  </div>
+</div>
+<div class="modal-bg" id="modal" style="background:rgba(0,0,0,.75)">
+  <div class="modal">
+    <p id="modal-txt"></p>
+    <button onclick="fecharModal()" id="modal-ok">Ok</button>
+    <button class="mini" onclick="fecharModal()" id="modal-cancel" style="display:none;margin-left:8px">Cancelar</button>
+  </div>
+</div>
+
+<script>
+/* ====== TRILHA COM CADEADOS (módulo comum do kit) ====== */
+var KIT='compasso_formas';
+var TRILHA=[
+ {id:'leitura', chave:KIT+'_leitura_v1', nome:'Leitura Guiada', arquivo:'leitura-guiada.html', emoji:'📖'},
+ {id:'quiz', chave:KIT+'_quiz_v1', nome:'Quiz', arquivo:'quiz.html', emoji:'🎯'},
+ {id:'resumo', chave:KIT+'_resumo_v1', nome:'Resumo', arquivo:'resumo.html', emoji:'🗺️'},
+ {id:'simulado', chave:KIT+'_simulado_v1', nome:'Simulado', arquivo:'simulado.html', emoji:'📝'}
+];
+function lerJSON(k){ try{ var s=localStorage.getItem(k); return s?JSON.parse(s):null; }catch(e){ return null; } }
+function trilhaLiberada(){ var t=lerJSON(KIT+'_trilha_v1'); return !!(t&&t.liberadoPelosPais); }
+function etapaConcluida(id){ var e=TRILHA.filter(function(t){return t.id===id;})[0]; var d=lerJSON(e.chave); return !!(d&&d.concluido); }
+function podeAbrir(id){ var idx=TRILHA.map(function(t){return t.id;}).indexOf(id); if(idx<=0||trilhaLiberada()) return true; return etapaConcluida(TRILHA[idx-1].id); }
+function checarTrava(){
+  if(podeAbrir('simulado')) return true;
+  var txt='Para abrir o Simulado, leia o Resumo até o fim e clique em "Li o resumo até o fim".';
+  if(!etapaConcluida('quiz')) txt='Para abrir o Simulado, envie o Quiz e leia o Resumo até o fim.';
+  if(!etapaConcluida('leitura')) txt='Para abrir o Simulado, conclua a Leitura Guiada, envie o Quiz e leia o Resumo até o fim.';
+  document.getElementById('lock-txt').textContent=txt;
+  document.getElementById('lock').classList.add('show');
+  document.querySelector('.wrap').style.filter='blur(6px)';
+  return false;
+}
+
+/* ====== QUESTÕES (conteúdo do livro Callis Arte 7, Un. 6 e 7) ====== */
+var Q=[
+ {tipo:"mc",p:"Qual das funções abaixo NÃO é citada pelo livro como função da pintura corporal indígena?",alts:[
+  {id:"a",t:"Mostrar quanto dinheiro a família possui.",ok:true,e:"O livro cita embelezamento, identidade, conexão com a natureza e rituais, cura e luto — não riqueza em dinheiro."},
+  {id:"b",t:"Embelezamento e ornamentação.",e:"É uma das funções citadas."},
+  {id:"c",t:"Cura de doenças e luto.",e:"As duas são citadas pelo livro."},
+  {id:"d",t:"Afirmação de identidade e conexão com a natureza.",e:"Também estão na lista do livro."}]},
+ {tipo:"mc",p:"Uma pessoa indígena aparece com o rosto coberto por uma camada de tinta vermelha, os pés e a parte de baixo das pernas vermelhos e a frente da cabeça raspada, com linhas pretas de carvão. Esse visual é típico dos:",alts:[
+  {id:"a",t:"kayapó xikrin.",ok:true,e:"É a descrição do livro para os kayapó: rosto vermelho (urucum), pés e pernas vermelhos, cabelo raspado na frente com linhas de carvão."},
+  {id:"b",t:"karajá.",e:"Karajá: faixas e listras e dois círculos nas faces."},
+  {id:"c",t:"yanomami.",e:"Yanomami: penas presas por perfurações."},
+  {id:"d",t:"asurini do Xingu.",e:"Asurini: grafismos de jabuti, macaco e favo de mel."}]},
+ {tipo:"mc",p:"Entre os itens abaixo, qual NÃO está na lista de instrumentos indígenas do livro?",alts:[
+  {id:"a",t:"Violino.",ok:true,e:"O violino aparece na unidade 7, na obra de Braque — não é instrumento indígena do livro."},
+  {id:"b",t:"Zunidor.",e:"Está na lista (instrumento girado no ar)."},
+  {id:"c",t:"Bastão de ritmo.",e:"Está na lista."},
+  {id:"d",t:"Reco-reco.",e:"Está na lista."}]},
+ {tipo:"mc",p:"Sobre o jenipapo, o livro afirma que, quando maduro, ele:",alts:[
+  {id:"a",t:"tem sabor ácido e é rico em vitamina C e ferro.",ok:true,e:"Além disso, a polpa oxidada vira corante entre azul-escuro e preto."},
+  {id:"b",t:"tem cor vermelha intensa, usada como corante de comida.",e:"Essa descrição é do urucum."},
+  {id:"c",t:"não pode ser consumido, só usado em pinturas.",e:"O livro não diz isso; fala do sabor e das vitaminas."},
+  {id:"d",t:"produz a tinta vermelha das pinturas corporais.",e:"O jenipapo produz a tinta preta."}]},
+ {tipo:"mc",p:"Os movimentos e gestos das danças indígenas, segundo o livro, são inspirados:",alts:[
+  {id:"a",t:"nas práticas do cotidiano.",ok:true,e:"Passos contidos e rítmicos, com movimentos e gestos inspirados nas práticas cotidianas."},
+  {id:"b",t:"nos balés clássicos europeus.",e:"Não há relação com o balé no livro."},
+  {id:"c",t:"em coreografias vistas na televisão.",e:"Não consta no livro."},
+  {id:"d",t:"em movimentos aleatórios, sem ritmo.",e:"O livro destaca justamente o ritmo e os passos contidos."}]},
+ {tipo:"mc",p:"O 'Retrato multicolorido' da página 86 serve, no livro, para mostrar que:",alts:[
+  {id:"a",t:"crianças de culturas diferentes carregam no corpo elementos que representam a identidade do seu grupo.",ok:true,e:"É um mosaico de crianças de várias culturas, cada uma com elementos de identidade do seu grupo."},
+  {id:"b",t:"todas as crianças do mundo se vestem do mesmo jeito.",e:"É o oposto: mostra a diversidade."},
+  {id:"c",t:"só os povos indígenas usam adornos.",e:"O mosaico inclui crianças de muitos países e culturas."},
+  {id:"d",t:"a pintura corporal é proibida fora do Brasil.",e:"Não há nada disso no livro."}]},
+ {tipo:"mc",p:"Segundo o IBGE (2023), citado no livro, a parcela da população indígena brasileira que vive na Amazônia Legal é de:",alts:[
+  {id:"a",t:"pouco mais da metade (51,2%).",ok:true,e:"1,7 milhão de pessoas no total; 51,2% na Amazônia Legal."},
+  {id:"b",t:"cerca de 10%.",e:"É pouco mais da metade."},
+  {id:"c",t:"100%.",e:"Metade vive fora da Amazônia Legal."},
+  {id:"d",t:"cerca de 320%.",e:"320 é o número aproximado de etnias, não uma porcentagem."}]},
+ {tipo:"mc",p:"O Cubismo teve início:",alts:[
+  {id:"a",t:"nos primeiros anos do século XX, na França.",ok:true,e:"Num mundo em mudanças, com as consequências da Primeira Guerra."},
+  {id:"b",t:"no século XIX, no Brasil.",e:"Nem a época nem o lugar conferem."},
+  {id:"c",t:"na Espanha, no século XVIII.",e:"Picasso era espanhol, mas o movimento nasceu na França, no século XX."},
+  {id:"d",t:"nos Estados Unidos, depois da Segunda Guerra.",e:"Léger se exilou nos EUA na Segunda Guerra, mas o Cubismo é bem anterior."}]},
+ {tipo:"mc",p:"Em As damas d'Avignon, as faces das mulheres foram inspiradas:",alts:[
+  {id:"a",t:"nas máscaras africanas.",ok:true,e:"Picasso representou as figuras com linhas retas e formas geométricas, e as faces com inspiração nas máscaras africanas."},
+  {id:"b",t:"em fotografias de bailarinas.",e:"Não consta no livro."},
+  {id:"c",t:"em pinturas corporais indígenas.",e:"Isso é tema da Unidade 6, não da obra."},
+  {id:"d",t:"em engrenagens e tanques de guerra.",e:"Engrenagens e tanques são da arte de Léger após a guerra."}]},
+ {tipo:"mc",p:"Na obra Violino e clarinete em cima da mesa, de Braque, há pedaços do que parecem ser jornais ou partituras com uma referência ao músico:",alts:[
+  {id:"a",t:"Bach.",ok:true,e:"O livro cita a referência ao músico 'Bach' nas partituras."},
+  {id:"b",t:"Chagall.",e:"Chagall é pintor, amigo de Léger."},
+  {id:"c",t:"Picasso.",e:"Picasso é pintor, parceiro de Braque."},
+  {id:"d",t:"Léger.",e:"Léger é pintor, não músico."}]},
+ {tipo:"mc",p:"Na fase ROSA de Picasso, as obras revelam:",alts:[
+  {id:"a",t:"alegria, amor e romantismo.",ok:true,e:"A fase rosa surge quando ele se apaixona; predominam tons rosa e avermelhados."},
+  {id:"b",t:"solidão, morte e pobreza.",e:"Esses são temas da fase azul."},
+  {id:"c",t:"influência da arte tribal africana.",e:"Isso é da fase africana."},
+  {id:"d",t:"máquinas e engrenagens.",e:"É o tema de Léger após a guerra."}]},
+ {tipo:"mc",p:"O Cubismo sintético (1913) surgiu como reação:",alts:[
+  {id:"a",t:"à fragmentação excessiva dos objetos no Cubismo analítico.",ok:true,e:"Para reagir ao excesso de fragmentação e à destruição da estrutura, passou a colar materiais reais e usar cores mais fortes."},
+  {id:"b",t:"às pinturas corporais indígenas.",e:"Sem relação."},
+  {id:"c",t:"ao uso de cores fortes demais.",e:"O sintético é que usa cores mais fortes."},
+  {id:"d",t:"à Segunda Guerra Mundial.",e:"1913 é anterior à Segunda Guerra."}]},
+ {tipo:"mc",p:"A pintura mais famosa de Fernand Léger, segundo o livro, é:",alts:[
+  {id:"a",t:"A Grande Parada (1954).",ok:true,e:"Feita na fase em que ele pintava temas do proletariado e dos trabalhadores."},
+  {id:"b",t:"O poeta (1911).",e:"O poeta é de Picasso."},
+  {id:"c",t:"São Paulo (1924).",e:"São Paulo é de Tarsila do Amaral."},
+  {id:"d",t:"Guitarra e Jornal (1913).",e:"Guitarra e Jornal é de Picasso."}]},
+ {tipo:"mc",p:"Durante a Segunda Guerra Mundial, Léger:",alts:[
+  {id:"a",t:"exilou-se nos Estados Unidos, onde lecionou em Yale e no Mills College.",ok:true,e:"Voltou à França em 1945."},
+  {id:"b",t:"lutou no front, na França.",e:"Isso foi na PRIMEIRA Guerra (1914)."},
+  {id:"c",t:"mudou-se para o Brasil e conheceu Tarsila.",e:"Não consta no livro."},
+  {id:"d",t:"parou de pintar para sempre.",e:"Continuou pintando; A Grande Parada é de 1954."}]},
+ {tipo:"mc",p:"A obra São Paulo (1924), de Tarsila do Amaral, é citada no livro como exemplo de:",alts:[
+  {id:"a",t:"influência do Cubismo no Brasil, pelo uso de formas geométricas.",ok:true,e:"Os brasileiros não aderiram ao Cubismo, mas a influência aparece nas formas geométricas de Tarsila."},
+  {id:"b",t:"marco inicial do Cubismo.",e:"O marco inicial é As damas d'Avignon (1907)."},
+  {id:"c",t:"Cubismo analítico puro, em tons de ocre.",e:"Não é o que o livro diz; é influência, não adesão."},
+  {id:"d",t:"pintura corporal brasileira.",e:"Sem relação com a Unidade 6."}]},
+ {tipo:"mc",p:"Na dança, segundo o livro, cada troca de movimento expressa:",alts:[
+  {id:"a",t:"uma intenção, uma ideia, uma expressão.",ok:true,e:"Quem dança escolhe os movimentos, e cada passagem de um para outro expressa algo."},
+  {id:"b",t:"apenas cansaço físico.",e:"Não consta no livro."},
+  {id:"c",t:"a cor da roupa do dançarino.",e:"Não consta no livro."},
+  {id:"d",t:"o tamanho do palco.",e:"O espaço é um elemento, mas a troca de movimento expressa intenção, não o tamanho do palco."}]},
+ {tipo:"mc",p:"São exemplos de FONTES SONORAS na dança, de acordo com o livro:",alts:[
+  {id:"a",t:"a respiração, o bater dos pés no chão e as palmas.",ok:true,e:"Além das músicas e do arrastar do corpo no chão."},
+  {id:"b",t:"a cabeça, o quadril e os pés.",e:"Essas são as três áreas espaciais do corpo."},
+  {id:"c",t:"amplitude, comprimento e profundidade.",e:"Essas são as dimensões do espaço."},
+  {id:"d",t:"balé, hip-hop e dança contemporânea.",e:"São modalidades de dança."}]},
+ {tipo:"mc",p:"No jogo Twister proposto pelo livro, cada cor ou forma geométrica colocada no chão representa:",alts:[
+  {id:"a",t:"uma parte do corpo que deve ser apoiada ali.",ok:true,e:"Ex.: azul = cotovelo direito, vermelho = pé esquerdo; o corpo cria dobras e mobiliza várias partes."},
+  {id:"b",t:"uma cor de tinta corporal.",e:"Sem relação com as tintas."},
+  {id:"c",t:"um instrumento musical.",e:"Não consta no jogo."},
+  {id:"d",t:"uma obra cubista.",e:"Não consta no jogo."}]},
+ {tipo:"mc",p:"No autorretrato cubista proposto pelo livro, o rosto é montado:",alts:[
+  {id:"a",t:"por recorte e colagem de partes do rosto vistas de vários ângulos, em um mesmo plano.",ok:true,e:"É a característica cubista de reunir diferentes pontos de vista numa superfície plana."},
+  {id:"b",t:"com uma única foto de frente, sem alterações.",e:"Isso seria o contrário do Cubismo."},
+  {id:"c",t:"só com tinta de urucum e jenipapo.",e:"As tintas são da Unidade 6."},
+  {id:"d",t:"em três dimensões, como uma escultura.",e:"O autorretrato é feito numa superfície plana."}]},
+ {tipo:"som",p:"Sobre o CUBISMO, some os números das afirmativas CORRETAS:",itens:[
+  {v:1,t:"Uma de suas características é o tratamento geométrico de objetos, do corpo humano e da natureza.",ok:true,e:"Correta: é a primeira característica listada pelo livro."},
+  {v:2,t:"Os cubistas buscavam copiar a realidade com perfeição, exatamente como ela é vista.",e:"Errada: o Cubismo rompeu com a perfeição das formas e com a cópia do real."},
+  {v:4,t:"O Cubismo rompe com a perspectiva.",ok:true,e:"Correta: rompimento com a perspectiva é característica do movimento."},
+  {v:8,t:"Toda obra cubista mostra o objeto de um único ângulo.",e:"Errada: a intenção é mostrar vários ângulos num só plano (só o sintético tende a um ângulo)."},
+  {v:16,t:"O Cubismo valoriza o exercício mental para expressar ideias, indo além da observação.",ok:true,e:"Correta: é a quarta característica do livro."}]},
+ {tipo:"som",p:"Sobre a PINTURA CORPORAL INDÍGENA, some os números das afirmativas CORRETAS:",itens:[
+  {v:1,t:"A tinta vermelha é feita com o pó da semente do urucum e água.",ok:true,e:"Correta."},
+  {v:2,t:"A tinta preta vem do jenipapo verde, fervido com água, e escurece depois de descansar.",ok:true,e:"Correta."},
+  {v:4,t:"A pintura corporal serve sempre e apenas como enfeite.",e:"Errada: tem várias funções (identidade, rituais, cura, luto…)."},
+  {v:8,t:"As receitas das tintas são transmitidas de geração em geração.",ok:true,e:"Correta."},
+  {v:16,t:"Todas as etnias usam exatamente os mesmos padrões gráficos.",e:"Errada: cada povo tem técnicas, padrões e significados próprios."}]},
+ {tipo:"rom",p:"Analise as afirmativas sobre a DANÇA (Unidade 7):",itens:[
+  {n:"I",t:"A dança é composta por quatro elementos: movimento, corpo, espaço e som.",ok:true,e:"Correta."},
+  {n:"II",t:"Só pessoas especialistas e profissionais podem dançar.",e:"Errada: qualquer pessoa, com qualquer tipo de corpo, pode dançar."},
+  {n:"III",t:"As áreas espaciais do corpo são alta (cabeça), média (quadril) e baixa (pés).",ok:true,e:"Correta."},
+  {n:"IV",t:"A dimensão 'profundidade' corresponde ao movimento na vertical.",e:"Errada: vertical é 'comprimento'; profundidade é para a frente, lados e diagonais."}],
+  alts:[{id:"a",t:"Apenas I e III.",ok:true,e:"I e III são corretas; II e IV são erradas."},{id:"b",t:"Apenas II e IV.",e:"II e IV são justamente as erradas."},{id:"c",t:"Apenas I, II e III.",e:"II é errada."},{id:"d",t:"Todas as afirmativas.",e:"II e IV são erradas."}]},
+ {tipo:"rom",p:"Analise as afirmativas sobre PICASSO e BRAQUE:",itens:[
+  {n:"I",t:"As damas d'Avignon (1907), de Picasso, é o marco inicial do Cubismo.",ok:true,e:"Correta."},
+  {n:"II",t:"Georges Braque foi o autor de As damas d'Avignon.",e:"Errada: a obra é de Picasso."},
+  {n:"III",t:"Picasso e Braque são considerados os principais criadores do Cubismo.",ok:true,e:"Correta."},
+  {n:"IV",t:"Picasso foi um multiartista: poeta, escultor, pintor, ceramista e gravurista.",ok:true,e:"Correta."}],
+  alts:[{id:"a",t:"Apenas I, III e IV.",ok:true,e:"Só a II é errada."},{id:"b",t:"Apenas I e II.",e:"II é errada e faltam III e IV."},{id:"c",t:"Apenas II e III.",e:"II é errada."},{id:"d",t:"Apenas I e III.",e:"IV também é correta."}]},
+ {tipo:"rom",p:"Analise as afirmativas sobre MÚSICA e DANÇA indígenas (Unidade 6):",itens:[
+  {n:"I",t:"O ritmo é o elemento essencial da música indígena.",ok:true,e:"Correta."},
+  {n:"II",t:"Na dança em círculo, todos se veem e se percebem como iguais, do mesmo grupo.",ok:true,e:"Correta."},
+  {n:"III",t:"As maracas são tambores de tronco oco.",e:"Errada: maracas são chocalhos de cabaça, sementes e pedras."},
+  {n:"IV",t:"Há músicas indígenas de proteção contra doenças e epidemias.",ok:true,e:"Correta."}],
+  alts:[{id:"a",t:"Apenas I, II e IV.",ok:true,e:"Só a III é errada."},{id:"b",t:"Apenas I e III.",e:"III é errada; II e IV faltam."},{id:"c",t:"Apenas II, III e IV.",e:"III é errada; I falta."},{id:"d",t:"Todas as afirmativas.",e:"III é errada."}]},
+ {tipo:"dis",p:"DISCURSIVA — Explique, com as suas palavras, por que a atividade 'Quebre a imagem' (fazer uma grade de linhas sobre uma imagem, deslocar algumas partes e redesenhar a composição) resulta numa RELEITURA CUBISTA. Cite pelo menos DUAS características do Cubismo na sua explicação.",
+  modelo:"Resposta-modelo (para os pais corrigirem): a atividade quebra a imagem em partes geométricas (tratamento geométrico / geometrização das formas), desloca e reorganiza os pedaços, mostrando a figura de vários pontos de vista num mesmo plano e rompendo com a perspectiva tradicional. Essas são características do Cubismo (fragmentação, geometrização, vários ângulos num único plano, rompimento com a perspectiva); por isso o resultado é uma releitura cubista. Vale a resposta que citar pelo menos duas dessas características e ligá-las aos passos da atividade."}
+];
+
+/* ====== EMBARALHAMENTO COM SEMENTE FIXA (mulberry32) — correta guardada pelo id ====== */
+function mulberry32(a){ return function(){ a|=0; a=a+0x6D2B79F5|0; var t=Math.imul(a^a>>>15,1|a); t=t+Math.imul(t^t>>>7,61|t)^t; return ((t^t>>>14)>>>0)/4294967296; }; }
+var rnd=mulberry32(7102026);
+Q.forEach(function(q){ if(q.alts){ var arr=q.alts.slice(); for(var i=arr.length-1;i>0;i--){ var j=Math.floor(rnd()*(i+1)); var tmp=arr[i]; arr[i]=arr[j]; arr[j]=tmp; } q.ordem=arr; } if(q.tipo==='som'){ q.soma=q.itens.filter(function(x){return x.ok;}).reduce(function(a,x){return a+x.v;},0); } });
+var OBJ=Q.filter(function(q){return q.tipo!=='dis';}).length;
+
+/* ====== ESTADO ====== */
+var CHAVE=KIT+'_simulado_v1'; var mem={}; var estado=carregar();
+function carregar(){ try{ var s=localStorage.getItem(CHAVE); if(s) return JSON.parse(s);}catch(e){ if(mem[CHAVE]) return JSON.parse(mem[CHAVE]); } return {resp:{},enviado:false}; }
+function salvar(){ var s=JSON.stringify(estado); try{ localStorage.setItem(CHAVE,s);}catch(e){ mem[CHAVE]=s; } var d=new Date(); document.getElementById('salvo').textContent='💾 Salvo às '+d.toLocaleTimeString('pt-BR')+' de '+d.toLocaleDateString('pt-BR'); }
+var LETRAS='ABCDEFGHJKLMNPQRSTUVWXYZ';
+function gerarCodigo(ac){ var xx=(ac<10?'0':'')+ac; var yy=LETRAS[Math.floor(Math.random()*LETRAS.length)]+LETRAS[Math.floor(Math.random()*LETRAS.length)]; return 'SIM-'+xx+'-'+yy; }
+function respondida(i){ var q=Q[i], r=estado.resp[i]; if(r===undefined||r===null||r==='') return false; if(q.tipo==='dis') return String(r).trim().length>=3; return true; }
+function acertou(i){ var q=Q[i], r=estado.resp[i]; if(q.tipo==='som') return parseInt(r,10)===q.soma; if(q.tipo==='dis') return null; var a=q.alts.filter(function(x){return x.id===r;})[0]; return !!(a&&a.ok); }
+
+function render(){
+  var c=document.getElementById('questoes'); var h=''; var G=estado.gabarito;
+  Q.forEach(function(q,i){
+    var tipoTxt={mc:'Múltipla escolha',som:'Somatório',rom:'Números romanos',dis:'Discursiva'}[q.tipo];
+    h+='<div class="q" id="q'+i+'"><span class="tipo '+q.tipo+'">'+tipoTxt+'</span><div class="num">Questão '+(i+1)+' de '+Q.length+'</div><h3>'+q.p+'</h3>';
+    if(q.tipo==='som'||q.tipo==='rom'){
+      q.itens.forEach(function(it){ var lab=q.tipo==='som'? ('('+(it.v<10?'0':'')+it.v+') ') : (it.n+'. '); var cls='afirm'+(G?(it.ok?' ok':' no'):''); h+='<div class="'+cls+'">'+lab+it.t+(G?'<div class="exp show">'+(it.ok?'✅ ':'❌ ')+it.e+'</div>':'')+'</div>'; });
+    }
+    if(q.tipo==='som'){
+      var r=estado.resp[i]; var ok=G?acertou(i):null;
+      h+='<div class="soma" style="margin-top:10px">Soma: <input type="number" min="0" max="31" id="som'+i+'" value="'+(r!==undefined?r:'')+'" '+(estado.enviado?'disabled':'')+' oninput="marcar('+i+',this.value)"><span class="lab">'+(G?(ok?'✅ Correto: '+q.soma:'❌ Você somou '+r+'; o certo é '+q.soma):'')+'</span></div>';
+    } else if(q.tipo==='dis'){
+      h+='<textarea id="dis'+i+'" '+(estado.enviado?'disabled':'')+' oninput="marcar('+i+',this.value)" placeholder="Escreva aqui com as suas palavras…">'+(estado.resp[i]||'')+'</textarea>';
+      h+='<div class="modelo'+(G?' show':'')+'">'+q.modelo+'</div>';
+    } else {
+      q.ordem.forEach(function(a,k){
+        var letra='abcd'[k]; var sel=estado.resp[i]===a.id; var cls='alt'+(sel?' sel':'');
+        if(G){ if(a.ok) cls+=' certa'; else if(sel) cls+=' marcada-errada'; else cls+=' errada'; }
+        h+='<label class="'+cls+'"><input type="radio" name="q'+i+'" value="'+a.id+'" '+(sel?'checked':'')+' '+(estado.enviado?'disabled':'')+' onchange="marcar('+i+',\''+a.id+'\')"> <b>'+letra+')</b> '+a.t+(G?'<div class="exp show">'+(a.ok?'✅ ':'')+a.e+'</div>':'')+'</label>';
+      });
+    }
+    h+='</div>';
+  });
+  c.innerHTML=h; atualizarBarra(); if(estado.enviado) mostrarEnviado();
+}
+function marcar(i,v){ if(estado.enviado) return; estado.resp[i]=v; salvar(); var q=document.getElementById('q'+i); if(Q[i].tipo==='mc'||Q[i].tipo==='rom'){ var labs=q.querySelectorAll('.alt'); for(var k=0;k<labs.length;k++){ labs[k].classList.toggle('sel', labs[k].querySelector('input').value===v); } } atualizarBarra(); }
+function atualizarBarra(){ var n=0; Q.forEach(function(q,i){ if(respondida(i)) n++; }); document.getElementById('barra').style.width=(n/Q.length*100)+'%'; var b=document.getElementById('btn-enviar'); if(!estado.enviado){ b.disabled=n<Q.length; b.textContent=n<Q.length?'📨 Enviar simulado ('+n+' de '+Q.length+' respondidas)':'📨 Enviar simulado'; } }
+function enviar(){
+  if(estado.enviado) return;
+  var ac=0; Q.forEach(function(q,i){ if(acertou(i)===true) ac++; });
+  estado.acertos=ac; estado.objetivas=OBJ; estado.codigo=gerarCodigo(ac); estado.enviado=true; estado.concluido=true; estado.concluidoEm=new Date().toISOString();
+  salvar(); render(); window.scrollTo({top:0,behavior:'smooth'});
+}
+function mostrarEnviado(){
+  var b=document.getElementById('btn-enviar'); b.disabled=true; b.textContent='✅ Simulado enviado — respostas travadas';
+  document.getElementById('codigo').classList.add('show'); document.getElementById('cod').textContent=estado.codigo;
+  document.getElementById('codtxt').textContent='Anote este código para os pais. Ele abre o gabarito comentado (a discursiva é corrigida com a resposta-modelo).';
+  document.getElementById('gab').classList.add('show'); document.getElementById('fim').style.display='block';
+}
+function abrirGab(){ var v=document.getElementById('gab-in').value.trim().toUpperCase(); var m=document.getElementById('gab-msg'); if(v===estado.codigo||v==='PAIS-77'){ estado.gabarito=true; salvar(); render(); m.innerHTML='<span style="color:#8fe0b4">Gabarito liberado: '+estado.acertos+' acertos de '+OBJ+' questões objetivas (+ 1 discursiva para corrigir).</span>'; } else { m.innerHTML='<span style="color:#ffb3b3">Código incorreto.</span>'; } }
+function exportar(){ var blob=new Blob([JSON.stringify(estado,null,2)],{type:'application/json'}); var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='simulado_compasso-das-formas.json'; a.click(); }
+function importar(ev){ var f=ev.target.files[0]; if(!f) return; var r=new FileReader(); r.onload=function(){ try{ estado=JSON.parse(r.result); salvar(); render(); mostrarModal('✅ Progresso importado!',false);}catch(e){ mostrarModal('❌ Arquivo inválido.',false);} }; r.readAsText(f); }
+var acaoZerar=null;
+function pedirZerar(){ acaoZerar=true; mostrarModal('Apagar as respostas deste Simulado? (Se ele já foi enviado, o código e a conclusão são mantidos.)',true); }
+function mostrarModal(txt,confirmar){ document.getElementById('modal-txt').innerHTML=txt; document.getElementById('modal').classList.add('show'); document.getElementById('modal-cancel').style.display=confirmar?'inline-block':'none'; document.getElementById('modal-ok').textContent=confirmar?'Sim, apagar':'Ok';
+  document.getElementById('modal-ok').onclick=function(){ if(confirmar&&acaoZerar){ if(!estado.enviado){ estado={resp:{},enviado:false}; salvar(); render(); } else { mostrarModal('O Simulado já foi enviado: as respostas ficam travadas. Para refazer do zero, use "Zerar o kit inteiro" no Início.',false); acaoZerar=null; return; } } acaoZerar=null; fecharModal(); }; }
+function fecharModal(){ document.getElementById('modal').classList.remove('show'); }
+
+if(checarTrava()){ render(); }
+</script>
+</body>
+</html>

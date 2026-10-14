@@ -1,0 +1,720 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Leitura Guiada · Compasso das Formas · Arte 7º</title>
+<style>
+  :root{
+    --palco:#0f0e14; --palco2:#1a1823; --aco:#2b2838; --aco2:#3b374c;
+    --ambar:#f2a93b; --magenta:#ff4d8d; --ciano:#35d0e0; --verde:#3ddc84; --verde2:#248a56;
+    --vermelho:#ff5d5d; --texto:#efeaf2; --cinza:#9a94a8;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:
+    radial-gradient(1100px 480px at 50% -10%,#2a1630,#0f0e14 60%),var(--palco);
+    color:var(--texto);line-height:1.6;padding-bottom:60px}
+  header{background:linear-gradient(120deg,#2a0f2b,#3a1545);padding:26px 18px;text-align:center;
+    box-shadow:0 4px 18px rgba(0,0,0,.5);border-bottom:4px solid var(--magenta)}
+  header .selo{font-size:.78rem;letter-spacing:2px;color:#ffc9dd;text-transform:uppercase}
+  header h1{font-size:1.5rem;margin:6px 0 2px}
+  header p{color:#f1d9e5;font-size:.92rem}
+  .wrap{max-width:820px;margin:0 auto;padding:16px}
+  .barra-nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:16px 0}
+  .barra-nav a{background:var(--palco2);color:var(--texto);text-decoration:none;padding:7px 12px;
+    border-radius:20px;font-size:.85rem;border:1px solid var(--aco)}
+  .barra-nav a.on{background:var(--magenta);color:#2a0612;font-weight:bold}
+  .barra-nav a.lock{opacity:.5}
+  .intro{background:var(--palco2);border:1px solid var(--aco);border-radius:14px;padding:16px;margin-bottom:16px}
+  .intro h2{color:var(--ambar);font-size:1.1rem;margin-bottom:8px}
+  .intro ol{margin:8px 0 0 20px}
+  .painel{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;
+    background:var(--palco2);border:1px solid var(--aco);border-radius:12px;padding:10px 14px;margin-bottom:16px;font-size:.85rem}
+  .painel .btns{display:flex;gap:6px;flex-wrap:wrap}
+  button{cursor:pointer;font-family:inherit}
+  .mini{background:var(--palco);color:var(--texto);border:1px solid var(--aco2);border-radius:8px;padding:6px 10px;font-size:.8rem}
+  .mini:hover{background:#2a2636}
+  /* linha do tempo */
+  .tl{background:var(--palco2);border:1px solid var(--aco);border-radius:16px;padding:16px;margin-bottom:18px}
+  .tl h3{color:var(--ciano);margin-bottom:6px}
+  .tl p.sub{color:var(--cinza);font-size:.85rem;margin-bottom:10px}
+  .tl-track{display:flex;gap:10px;overflow-x:auto;padding:12px 4px 8px;scroll-snap-type:x mandatory}
+  .tl-item{flex:0 0 150px;scroll-snap-align:start;background:#141220;border:1px solid var(--aco2);border-top:4px solid var(--ciano);border-radius:10px;padding:10px;cursor:pointer;transition:transform .15s}
+  .tl-item:hover{transform:translateY(-3px);border-color:var(--ambar)}
+  .tl-item.u6{border-top-color:var(--ambar)}
+  .tl-item .ano{font-weight:bold;color:var(--ambar);font-size:1.05rem}
+  .tl-item.u7 .ano{color:var(--ciano)}
+  .tl-item .ev{font-size:.82rem;color:var(--texto)}
+  .tl-item .quem{font-size:.72rem;color:var(--cinza);margin-top:4px}
+  .bloco{background:var(--palco2);border:1px solid var(--aco);border-radius:16px;margin-bottom:18px;overflow:hidden;box-shadow:0 3px 12px rgba(0,0,0,.35)}
+  .bloco.travado{opacity:.55}
+  .bloco-cab{display:flex;align-items:center;gap:12px;padding:14px 16px;background:linear-gradient(90deg,#231a2c,#2b1f38);border-bottom:1px solid var(--aco)}
+  .bloco-cab .num{background:var(--magenta);color:#2a0612;font-weight:bold;width:34px;height:34px;border-radius:9px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+  .bloco.u7 .bloco-cab .num{background:var(--ciano);color:#04232a}
+  .bloco-cab h3{font-size:1.06rem;color:#fff}
+  .bloco-cab .porto{font-size:.7rem;color:var(--cinza);letter-spacing:1px;text-transform:uppercase}
+  .bloco-corpo{padding:16px}
+  .texto p{margin-bottom:10px}
+  .texto ul{margin:0 0 10px 20px}
+  .texto li{margin-bottom:5px}
+  .texto .destaque{color:var(--ambar);font-weight:bold}
+  .bloco.u7 .texto .destaque{color:var(--ciano)}
+  .olhar{background:#1d1426;border-left:3px solid var(--magenta);padding:8px 12px;margin:0 0 10px;border-radius:0 8px 8px 0;font-size:.92rem}
+  .olhar b{color:var(--magenta)}
+  .cadeado{padding:22px 16px;text-align:center;color:var(--cinza);font-size:.9rem}
+  .perg{background:#141220;border:1px solid var(--aco);border-radius:12px;padding:12px;margin-top:14px}
+  .perg.red{border-color:var(--vermelho);box-shadow:0 0 0 1px var(--vermelho)}
+  .perg .tag{display:inline-block;font-size:.66rem;text-transform:uppercase;letter-spacing:1px;padding:2px 8px;border-radius:10px;margin-bottom:6px}
+  .tag.conc{background:#163a44;color:#8fd9e4}
+  .tag.apl{background:#1d4530;color:#a7e0bf}
+  .perg label{display:block;font-weight:600;margin-bottom:8px}
+  .perg textarea{width:100%;min-height:70px;background:#0a0910;color:var(--texto);border:1px solid var(--aco2);border-radius:8px;padding:9px;font-family:inherit;font-size:.95rem;resize:vertical}
+  .aviso{margin-top:8px;padding:9px 11px;border-radius:8px;font-size:.85rem;display:none}
+  .aviso.amarelo{display:block;background:#4a3d12;border:1px solid var(--ambar);color:#ffe9ad}
+  .aviso.vermelho{display:block;background:#4a1717;border:1px solid var(--vermelho);color:#ffc9c9}
+  .modelo{margin-top:10px;padding:10px 12px;background:#0e2b1f;border:1px solid var(--verde);border-radius:8px;font-size:.9rem;display:none}
+  .modelo.show{display:block}
+  .modelo .lab{color:#8fe0b4;font-weight:bold;font-size:.78rem;text-transform:uppercase;letter-spacing:1px}
+  .chk{margin-top:10px;font-size:.88rem}
+  .chk .item{display:flex;align-items:center;gap:8px;margin:6px 0;flex-wrap:wrap}
+  .chk .item span{flex:1;min-width:180px}
+  .chk .simnao button{border:1px solid var(--aco2);background:#0a0910;color:var(--texto);border-radius:6px;padding:4px 10px;margin-left:4px;font-size:.8rem}
+  .chk .simnao button.sim.ativo{background:var(--verde);border-color:var(--verde);color:#04231a}
+  .chk .simnao button.nao.ativo{background:var(--vermelho);border-color:var(--vermelho);color:#fff}
+  .conferir{margin-top:14px;background:var(--verde);color:#04231a;border:none;border-radius:10px;padding:11px 18px;font-size:1rem;font-weight:bold;width:100%}
+  .conferir:disabled{background:#2a2636;color:#6f6a7c;cursor:not-allowed}
+  .status-bloco{margin-top:10px;text-align:center;font-weight:bold;font-size:.95rem}
+  .prox{margin-top:12px;text-align:center}
+  .prox a{color:var(--ciano);text-decoration:none;font-weight:bold}
+  .peg{background:#3a1414;border:2px solid var(--vermelho);border-radius:16px;padding:16px;margin-top:20px}
+  .peg h3{color:#ffb3b3;margin-bottom:10px}
+  .peg ol{margin-left:20px}
+  .peg li{margin-bottom:7px}
+  .cobertura{background:var(--palco2);border:1px solid var(--aco);border-radius:16px;padding:16px;margin-top:18px}
+  .cobertura h3{color:var(--ciano);margin-bottom:10px}
+  table{width:100%;border-collapse:collapse;font-size:.85rem}
+  th,td{border:1px solid var(--aco);padding:7px 9px;text-align:left}
+  th{background:#231a2c}
+  .revisar{background:#3a2e06;border:2px solid var(--ambar);border-radius:16px;padding:16px;margin-top:18px}
+  .revisar h3{color:var(--ambar);margin-bottom:8px}
+  .revisar ul{margin-left:18px}
+  .relatorio{background:var(--palco2);border:1px dashed var(--ciano);border-radius:14px;padding:16px;margin-top:18px;font-size:.9rem}
+  .relatorio h3{color:var(--ciano);margin-bottom:8px}
+  .trilha-fim{background:linear-gradient(120deg,#1b2a1f,#163a2a);border:2px solid var(--verde);border-radius:16px;padding:18px;margin-top:18px;text-align:center}
+  .trilha-fim h3{color:#8fe0b4;margin-bottom:8px}
+  .trilha-fim a.btn{display:inline-block;margin-top:8px;background:var(--verde);color:#04231a;text-decoration:none;font-weight:bold;padding:11px 20px;border-radius:10px}
+  .trilha-fim a.btn.off{background:#2a2636;color:#6f6a7c;pointer-events:none}
+  .modal-bg{display:none;position:fixed;inset:0;background:rgba(0,0,0,.78);z-index:50;align-items:center;justify-content:center;padding:16px}
+  .modal-bg.show{display:flex}
+  .modal{background:var(--palco2);border:1px solid var(--ciano);border-radius:14px;padding:20px;max-width:420px;text-align:center}
+  .modal p{margin-bottom:14px}
+  .modal button{background:var(--ciano);color:#04232a;border:none;border-radius:8px;padding:9px 16px;font-weight:bold}
+  .rodape{text-align:center;color:var(--cinza);font-size:.8rem;margin-top:24px}
+</style>
+</head>
+<body>
+<header>
+  <div class="selo">Compasso das Formas · Arte 7º ano · CCF</div>
+  <h1>📖 Leitura Guiada</h1>
+  <p>Unidades 6 e 7 · Prova 20/10 · Callis Arte 7 (pp. 84–111)</p>
+</header>
+
+<div class="wrap">
+  <nav class="barra-nav" id="nav">
+    <a class="on" href="leitura-guiada.html">📖 Leitura Guiada</a>
+    <a href="quiz.html" data-etapa="quiz">🎯 Quiz</a>
+    <a href="resumo.html" data-etapa="resumo">🗺️ Resumo</a>
+    <a href="simulado.html" data-etapa="simulado">📝 Simulado</a>
+    <a href="index.html">🏠 Início</a>
+  </nav>
+
+  <div class="intro">
+    <h2>🥁 Como funciona esta coreografia</h2>
+    <p>Esta leitura é uma coreografia em <b>10 compassos</b>: os cinco primeiros são do <b>corpo pintado</b> (Unidade 6, culturas indígenas) e os cinco últimos, do <b>corpo que dança entre planos</b> (Unidade 7, Cubismo e dança). A cada compasso, leia o texto e <b>escreva com as suas palavras</b> as respostas das 3 perguntas. O próximo compasso só abre quando você conferir o anterior.</p>
+    <ol>
+      <li>Leia o compasso com calma (tudo aqui vem do seu livro).</li>
+      <li>Responda as 3 perguntas <b>escrevendo</b> (não vale copiar o texto).</li>
+      <li>Clique em <b>Conferir</b>: aparece a resposta-modelo e uma autoavaliação Sim/Não.</li>
+      <li>Com os 10 compassos conferidos e a autoavaliação respondida, o <b>🎯 Quiz destrava</b>.</li>
+    </ol>
+  </div>
+
+  <div class="painel">
+    <span id="salvo">💾 Progresso salvo automaticamente.</span>
+    <div class="btns">
+      <button class="mini" onclick="exportar()">📥 Exportar</button>
+      <button class="mini" onclick="document.getElementById('imp').click()">📤 Importar</button>
+      <input type="file" id="imp" accept="application/json" style="display:none" onchange="importar(event)">
+      <button class="mini" onclick="pedirZerar()">🗑️ Zerar tudo</button>
+    </div>
+  </div>
+
+  <div class="tl">
+    <h3>🕰️ Linha do tempo da coreografia</h3>
+    <p class="sub">Clique num marco para ir ao compasso em que ele aparece. Laranja = Unidade 6 · Azul = Unidade 7.</p>
+    <div class="tl-track" id="tl"></div>
+  </div>
+
+  <div id="blocos"></div>
+
+  <div class="peg">
+    <h3>⚠️ 10 Pegadinhas da Prova (não caia nelas!)</h3>
+    <ol>
+      <li><b>Urucum × jenipapo:</b> o <b>urucum</b> dá a tinta <b>vermelha</b> (pó da semente + água). O <b>jenipapo</b> dá a tinta <b>preta</b> (polpa verde fervida, que começa sem cor e escurece depois de descansar). Não troque.</li>
+      <li><b>Pintura corporal não é só enfeite.</b> Pode marcar identidade, fase da vida, posição no grupo, ligação com a natureza e com rituais, cura e até luto.</li>
+      <li><b>Karajá × kayapó xikrin:</b> os <b>karajá</b> pintam <b>dois círculos nas faces</b> dos jovens na puberdade; os <b>kayapó xikrin</b> pintam o <b>rosto, pés e pernas de vermelho</b> (urucum) e raspam a frente do cabelo com linhas pretas de carvão.</li>
+      <li><b>Yanomami</b> são os que usam <b>adornos de penas presos por perfurações</b> (nariz, orelhas, lábios). Vivem na fronteira Brasil–Venezuela.</li>
+      <li><b>Dança indígena em círculo</b> não é "por acaso": o formato circular faz todos se verem e se sentirem <b>iguais, do mesmo grupo</b>.</li>
+      <li><b>"Índio" × "indígena":</b> "índio" veio dos colonizadores (achavam que estavam nas Índias). No Brasil, prefere-se <b>"indígena"</b>: nativo, originário do lugar.</li>
+      <li><b>Cubismo não é "pintar cubos".</b> É mostrar <b>vários ângulos de uma vez num único plano</b> (frente e perfil ao mesmo tempo), geometrizar formas e romper com a perspectiva.</li>
+      <li><b>Analítico × sintético:</b> <b>analítico</b> (1910) = fragmenta e decompõe, cores <b>monocromáticas</b> (marrom, cinza, ocre). <b>Sintético</b> (1913) = reage ao excesso de fragmentação, usa <b>colagem</b> de materiais do cotidiano, formas de <b>um ângulo só</b> e <b>cores mais fortes</b>.</li>
+      <li><b>Marco inicial do Cubismo</b> = <b>As damas d'Avignon</b>, Picasso, <b>1907</b>. Os principais criadores são <b>Picasso e Braque</b>. Léger entrou depois (conheceu os dois em 1911) e Tarsila do Amaral só recebeu <b>influência</b> (os brasileiros não aderiram ao Cubismo).</li>
+      <li><b>Áreas × dimensões do espaço:</b> as <b>áreas</b> são <b>alta, média e baixa</b> (cabeça, quadril, pés). As <b>dimensões</b> são <b>amplitude</b> (horizontal), <b>comprimento</b> (vertical) e <b>profundidade</b> (frente, lados, diagonais). São duas listas diferentes.</li>
+    </ol>
+  </div>
+
+  <div class="cobertura">
+    <h3>🧭 Cobertura: Tópico → Compasso</h3>
+    <table>
+      <thead><tr><th>Tópico da prova</th><th>Páginas (Callis Arte 7)</th><th>Compasso</th></tr></thead>
+      <tbody>
+        <tr><td>O corpo expressa identidade (adornos, roupas, pinturas, marcas)</td><td>86</td><td>1</td></tr>
+        <tr><td>Pintura corporal: funções, técnicas, urucum e jenipapo; Arissana Pataxó</td><td>87, 90</td><td>2</td></tr>
+        <tr><td>Etnias: asurini do Xingu, karajá, kayapó xikrin, yanomami</td><td>88–89</td><td>3</td></tr>
+        <tr><td>Dança indígena; "índio" × "indígena"</td><td>92</td><td>4</td></tr>
+        <tr><td>Música indígena e instrumentos</td><td>93</td><td>5</td></tr>
+        <tr><td>Cubismo: origem, intenção e características</td><td>98</td><td>6</td></tr>
+        <tr><td>Picasso e Braque: As damas d'Avignon; Violino e clarinete; fases de Picasso</td><td>99–100, 102</td><td>7</td></tr>
+        <tr><td>Cubismo analítico × sintético</td><td>100–101</td><td>8</td></tr>
+        <tr><td>Fernand Léger; Tarsila do Amaral; autorretrato cubista</td><td>96–98, 102–103</td><td>9</td></tr>
+        <tr><td>Dança: corpo, movimento, som e espaço; áreas e dimensões; consciência corporal</td><td>104–109</td><td>10</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="revisar" id="revisar" style="display:none">
+    <h3>🔁 Para revisar antes da prova</h3>
+    <ul id="revisar-lista"></ul>
+  </div>
+
+  <div class="relatorio">
+    <h3>📊 Para os pais (resumo desta leitura)</h3>
+    <div id="rel-conteudo">Assim que o aprendiz for conferindo os compassos, o resumo aparece aqui.</div>
+  </div>
+
+  <div class="trilha-fim" id="trilha-fim">
+    <h3>🔒 Próxima etapa: Quiz</h3>
+    <p id="trilha-fim-txt">O Quiz destrava quando os 10 compassos estiverem conferidos e a autoavaliação respondida.</p>
+    <a class="btn off" id="btn-prox" href="quiz.html">🎯 Ir para o Quiz</a>
+  </div>
+
+  <div class="rodape">Feito com carinho para o jovem aprendiz. 🥁 Boa prova!</div>
+</div>
+
+<div class="modal-bg" id="modal">
+  <div class="modal">
+    <p id="modal-txt"></p>
+    <button onclick="fecharModal()" id="modal-ok">Ok</button>
+    <button class="mini" onclick="fecharModal()" id="modal-cancel" style="display:none;margin-left:8px">Cancelar</button>
+  </div>
+</div>
+
+<script>
+/* ====== TRILHA COM CADEADOS (módulo comum do kit) ====== */
+var KIT='compasso_formas';
+var TRILHA=[
+ {id:'leitura', chave:KIT+'_leitura_v1', nome:'Leitura Guiada', arquivo:'leitura-guiada.html', emoji:'📖'},
+ {id:'quiz', chave:KIT+'_quiz_v1', nome:'Quiz', arquivo:'quiz.html', emoji:'🎯'},
+ {id:'resumo', chave:KIT+'_resumo_v1', nome:'Resumo', arquivo:'resumo.html', emoji:'🗺️'},
+ {id:'simulado', chave:KIT+'_simulado_v1', nome:'Simulado', arquivo:'simulado.html', emoji:'📝'}
+];
+function lerJSON(k){ try{ var s=localStorage.getItem(k); return s?JSON.parse(s):null; }catch(e){ return null; } }
+function trilhaLiberada(){ var t=lerJSON(KIT+'_trilha_v1'); return !!(t&&t.liberadoPelosPais); }
+function etapaConcluida(id){ var e=TRILHA.filter(function(t){return t.id===id;})[0]; var d=lerJSON(e.chave); return !!(d&&d.concluido); }
+function podeAbrir(id){ var idx=TRILHA.map(function(t){return t.id;}).indexOf(id); if(idx<=0||trilhaLiberada()) return true; return etapaConcluida(TRILHA[idx-1].id); }
+function marcarNav(){
+  var links=document.querySelectorAll('#nav a[data-etapa]');
+  for(var i=0;i<links.length;i++){ var id=links[i].getAttribute('data-etapa'); if(!podeAbrir(id)){ links[i].classList.add('lock'); links[i].textContent='🔒 '+links[i].textContent.replace('🔒 ',''); links[i].setAttribute('title','Ainda trancado'); } else { links[i].classList.remove('lock'); links[i].textContent=links[i].textContent.replace('🔒 ',''); } }
+}
+
+/* ====== DADOS DOS COMPASSOS (conteúdo real do livro Callis Arte 7 — Unidades 6 e 7) ====== */
+var BLOCOS = [
+ {
+  porto:"Compasso 1 · Unidade 6", emoji:"🪶", u:"u6",
+  titulo:"O corpo que fala",
+  texto:[
+   "A identidade de um povo pode ser expressa <span class='destaque'>por meio do corpo</span>. Adornos, roupas, pinturas e marcas corporais revelam muito da cultura em que as pessoas vivem: o corpo <b>comunica valores culturais</b>.",
+   "Em alguns grupos, esses elementos indicam o <span class='destaque'>papel de cada pessoa</span> na sociedade. Eles podem representar a <b>passagem de uma fase da vida</b>, o <b>pertencimento</b> a um grupo, o <b>apreço estético</b> (gostar do belo) e a <b>posição hierárquica</b> dentro do grupo, entre outras coisas.",
+   "O livro mostra isso no <span class='destaque'>Retrato multicolorido</span> (p. 86): um mosaico de crianças de várias partes do mundo (kayapó, indiana, inuíte, balinesa, yanomami, mongol, arara karo, malgaxe, paquistanesa…), cada uma com elementos que representam a identidade do seu grupo cultural.",
+   "<div class='olhar'><b>Olhar de prova:</b> a ideia-chave da unidade é esta — <b>o corpo é uma linguagem</b>. Tudo que vem depois (tintas, grafismos, dança, música) é um jeito de o corpo falar.</div>"
+  ],
+  perguntas:[
+   {tag:"conc",q:"Explique, com as suas palavras, o que o livro quer dizer quando afirma que o corpo pode 'comunicar valores culturais'.",modelo:"Que o jeito de enfeitar e marcar o corpo (adornos, roupas, pinturas) mostra coisas da cultura da pessoa: a que grupo ela pertence, qual é o seu papel ou posição, em que fase da vida está, o que o grupo acha bonito.",chk:["Falei que o corpo mostra/comunica coisas da cultura?","Dei pelo menos um exemplo do que ele pode mostrar (grupo, papel, fase da vida, beleza, posição)?"]},
+   {tag:"apl",q:"Pense em um grupo da sua própria vida (escola, time, família, torcida). Dê um exemplo de algo usado no corpo que mostra que a pessoa faz parte desse grupo e explique o que isso comunica.",modelo:"Ex.: a camisa do time comunica pertencimento à torcida; o uniforme da escola mostra a que escola a pessoa pertence; uma aliança indica a fase da vida (casado). O exemplo precisa dizer o que o elemento 'fala' sobre a pessoa.",chk:["Dei um exemplo de algo usado no corpo?","Expliquei o que ele comunica (pertencimento, fase, papel, posição)?"]},
+   {tag:"apl",q:"Imagine que uma criança do Retrato multicolorido usa um adorno que só os mais velhos da aldeia podem usar. Qual das funções citadas no livro esse adorno estaria exercendo? Justifique.",modelo:"A função de indicar a posição hierárquica (ou o papel) da pessoa dentro do grupo: o adorno mostra que ela tem um lugar especial, de mais importância ou de mais idade, na sociedade.",chk:["Escolhi a função de posição hierárquica/papel no grupo?","Justifiquei dizendo que o adorno mostra o lugar da pessoa no grupo?"]}
+  ]
+ },
+ {
+  porto:"Compasso 2 · Unidade 6", emoji:"🎨", u:"u6",
+  titulo:"Tintas da floresta: a pintura corporal",
+  texto:[
+   "Segundo o IBGE (2023), a população indígena brasileira chegou a cerca de <span class='destaque'>1,7 milhão de pessoas</span>; pouco mais da metade (51,2%) vive na Amazônia Legal. Há cerca de <b>320 etnias</b> cadastradas na Justiça Eleitoral, cada uma com características próprias.",
+   "A <span class='destaque'>pintura corporal</span> é uma tradição de várias etnias e pode ter <b>diferentes funções</b>, dependendo do contexto: embelezamento e ornamentação, afirmação de identidade, conexão com a natureza, com entidades da mitologia e com forças naturais e sobrenaturais (em cerimônias e rituais), cura de doenças, luto, entre outras.",
+   "Cada povo desenvolve <b>técnicas e estéticas próprias</b>: formas, padrões e combinações gráficas específicas para cada parte do corpo, com significados próprios. Os desenhos abstratos, que parecem simples, têm relação profunda com a tradição de cada etnia. A artista plástica <span class='destaque'>Arissana Pataxó</span> (etnia pataxó, sul da Bahia; no livro o nome aparece também grafado 'Arianna') pinta o cotidiano do seu povo e dá oficinas de pintura corporal; sua primeira exposição, 'Sob o olhar de Pataxó', foi em 2007.",
+   "As <b>receitas das tintas</b> passam de geração em geração, e as cores principais são a <span class='destaque'>preta e a vermelha</span>. A tinta <b>vermelha</b> vem do <b>pó da semente do urucum</b> misturado com água (o urucum também é corante de comida e tem propriedades medicinais). A tinta <b>preta</b> vem da <b>polpa do jenipapo verde</b>, fervida com água: no começo não tem cor nenhuma e <b>fica preta depois de um tempo de descanso</b> (o jenipapo maduro é rico em vitamina C e ferro)."
+  ],
+  perguntas:[
+   {tag:"conc",q:"Cite três funções diferentes que a pintura corporal pode ter nas culturas indígenas, segundo o livro.",modelo:"Ex.: embelezamento/ornamentação; afirmação de identidade; conexão com a natureza, a mitologia ou forças sobrenaturais em rituais; cura de doenças; luto.",chk:["Citei três funções diferentes?","Elas estão entre as do livro (beleza, identidade, rituais/natureza, cura, luto)?"]},
+   {tag:"apl",q:"Um colega disse: 'a tinta preta vem do urucum e a vermelha vem do jenipapo'. Corrija o colega explicando de onde vem cada cor e como cada tinta é feita.",modelo:"É o contrário: a tinta VERMELHA vem do urucum (pó da semente misturado com água); a tinta PRETA vem do jenipapo verde (polpa fervida com água, que começa incolor e escurece depois de descansar).",chk:["Disse que o urucum dá o vermelho e o jenipapo dá o preto?","Expliquei como pelo menos uma das tintas é feita?"]},
+   {tag:"apl",q:"Por que o livro diz que desenhos 'aparentemente simples' têm 'relações profundas' com a cultura de cada etnia? Explique com um exemplo seu.",modelo:"Porque cada forma, padrão e lugar do corpo onde o desenho é feito tem um significado próprio para aquele povo (ligado às suas tradições), mesmo que para quem vê de fora pareça só uma linha ou um traço. Ex.: um padrão de listras pode representar um animal importante para a etnia.",chk:["Expliquei que os desenhos têm significados próprios para cada povo?","Dei um exemplo meu?"]}
+  ]
+ },
+ {
+  porto:"Compasso 3 · Unidade 6", emoji:"🗺️", u:"u6",
+  titulo:"Quatro povos, quatro grafismos",
+  texto:[
+   "<span class='destaque'>Asurini do Xingu</span> — vivem numa aldeia à margem do rio Xingu, no <b>Pará</b>. Pinturas com pigmentos naturais, <b>desenhos geométricos em preto e vermelho</b> que representam elementos da natureza: <b>pata de jabuti, rabo de macaco, favo de mel</b>.",
+   "<span class='destaque'>Karajá</span> — vivem às margens do rio <b>Araguaia</b> (Goiás, Tocantins, Pará e Mato Grosso). Padrões abstratos de <b>faixas e listras</b> nas pernas e nos braços, que representam especialmente <b>animais da fauna</b> da região. Marca registrada: os jovens recebem <b>dois círculos pintados nas faces</b> quando entram na <b>puberdade</b>.",
+   "<span class='destaque'>Kayapó xikrin</span> — subgrupo dos kayapó; vivem entre os rios Xingu e Tocantins, no Pará (terras Cateté e Trincheira/Bacajá). A pintura tem <b>função social e religiosa</b>: indica <b>pertencimento</b> ao grupo, mas também serve de ornamento e mostra o <b>status</b>. Representam <b>peixes, antas, onças e cobras</b> em padrões geométricos. É típico todos pintarem o <b>rosto de vermelho</b> (urucum); pés e parte de baixo das pernas também vermelhos; e o cabelo é <b>raspado na frente</b>, onde se desenham linhas pretas com carvão.",
+   "<span class='destaque'>Yanomami</span> — vivem na Floresta Amazônica, na <b>fronteira do Brasil com a Venezuela</b>. Além das pinturas (padrões geométricos em vermelho e preto), usam <b>adornos de penas de aves</b> presos ao corpo por <b>perfurações no nariz, nas orelhas e nos lábios</b>. Pinturas e adereços têm grande importância em <b>cerimônias e rituais</b>."
+  ],
+  perguntas:[
+   {tag:"conc",q:"Qual é a diferença entre o que a pintura dos asurini representa e o que a pintura dos karajá representa?",modelo:"Os asurini representam elementos da natureza (pata de jabuti, rabo de macaco, favo de mel) com desenhos geométricos preto/vermelho; os karajá usam faixas e listras nas pernas e braços que representam especialmente animais da fauna da região.",chk:["Falei o que os asurini representam (natureza: jabuti, macaco, favo)?","Falei o que os karajá representam (animais, em faixas e listras)?"]},
+   {tag:"apl",q:"Se você visse uma pessoa com dois círculos pintados nas faces, de que povo ela provavelmente seria e o que a pintura estaria indicando?",modelo:"Provavelmente karajá: os dois círculos nas faces são a pintura que os jovens recebem quando entram na puberdade, indicando esse novo momento da vida.",chk:["Identifiquei o povo karajá?","Disse que indica a puberdade / uma nova fase da vida?"]},
+   {tag:"apl",q:"Crie uma 'ficha de identificação' de um dos quatro povos sem dizer o nome: escreva três pistas (onde vive, cor ou padrão, uma marca especial) para um colega adivinhar.",modelo:"Ex.: 'Vivo na fronteira do Brasil com a Venezuela; minhas pinturas são geométricas em vermelho e preto; uso adornos de penas presos por perfurações no nariz, orelhas e lábios.' (= yanomami). Qualquer povo vale, desde que as três pistas sejam do livro.",chk:["Dei três pistas?","As pistas batem com o que o livro diz sobre esse povo?"]}
+  ]
+ },
+ {
+  porto:"Compasso 4 · Unidade 6", emoji:"💃", u:"u6",
+  titulo:"Roda que dança",
+  texto:[
+   "As <span class='destaque'>danças indígenas</span> revelam elementos da cultura de cada etnia. Costumam ser <b>experiências coletivas</b> e acontecer em momentos de <b>festa, ritual místico, celebração e agradecimento</b>.",
+   "São uma mistura de coreografias com <b>passos contidos e rítmicos</b>, com movimentos e gestos inspirados nas <b>práticas do dia a dia</b>. São acompanhadas pelo som da <b>voz, em murmúrios</b>, e por instrumentos como <b>flautas e maracas</b> (um chocalho feito de cabaça seca, sementes e pedras). Os dançarinos usam <b>vestimentas, adereços e pintura corporal</b> específicos.",
+   "Algumas danças são feitas em <span class='destaque'>formato circular</span>: assim todos os integrantes podem <b>se ver</b>, percebendo-se como <b>iguais, pertencentes a um mesmo grupo</b>. O livro mostra o ritual de casamento dos pataxó na festa Aragwaksá (Porto Seguro, Bahia, 2019).",
+   "<div class='olhar'><b>Olho na arte:</b> a palavra <b>'índio'</b> foi criada pelos primeiros colonizadores europeus, que pensaram ter chegado às Índias. No Brasil usa-se de preferência <b>'indígena'</b>: aquele que é nativo, originário, que habita um lugar. Cada etnia tem tradições e um modo próprio de se organizar.</div>"
+  ],
+  perguntas:[
+   {tag:"conc",q:"Por que algumas danças indígenas são feitas em círculo? O que isso quer dizer para o grupo?",modelo:"Porque no círculo todos conseguem se ver, e isso faz cada um se perceber como igual aos outros, pertencente ao mesmo grupo.",chk:["Falei que no círculo todos se veem?","Falei da ideia de igualdade/pertencimento ao grupo?"]},
+   {tag:"apl",q:"Explique para um colega mais novo por que, no Brasil, se prefere a palavra 'indígena' em vez de 'índio'.",modelo:"'Índio' foi um erro dos colonizadores, que acharam que tinham chegado às Índias. 'Indígena' significa nativo, originário do lugar, e por isso descreve melhor quem são esses povos.",chk:["Expliquei de onde veio a palavra 'índio' (Índias/colonizadores)?","Disse o que 'indígena' significa (nativo, originário)?"]},
+   {tag:"apl",q:"Descreva, com as suas palavras, três elementos que você veria e ouviria numa dança indígena (movimento, som ou visual).",modelo:"Ex.: passos contidos e rítmicos com gestos do cotidiano (movimento); voz em murmúrios, flautas e maracas (som); vestimentas, adereços e pintura corporal (visual); formação em círculo.",chk:["Citei três elementos?","Pelo menos um é de som e um é de movimento ou visual?"]}
+  ]
+ },
+ {
+  porto:"Compasso 5 · Unidade 6", emoji:"🥁", u:"u6",
+  titulo:"Ritmo da aldeia: a música indígena",
+  texto:[
+   "A <span class='destaque'>música indígena</span>, como a dança, é muito importante para a maioria dos povos, porque <b>preserva a memória e as tradições</b>. Há músicas para muitas situações: <b>atos biológicos</b> (nascimento, puberdade, velhice, morte), <b>proteção</b> (doenças e epidemias) e <b>celebração de grandes acontecimentos</b> (vitória na guerra, caça e pesca bem-sucedidas, colheita fértil).",
+   "O <span class='destaque'>ritmo</span> é o elemento essencial: é ele que comanda a <b>coreografia e o canto</b> que acompanham essas músicas.",
+   "Cada povo tem seus instrumentos e seu jeito de usá-los, mesmo que muitos sejam feitos de modo parecido. Entre eles: <b>tambores</b> de vários tipos e tamanhos, <b>reco-recos, chocalhos, bastões de ritmo, pios, apitos, flautas, trombetas, zunidores</b> e até <b>o próprio corpo</b>.",
+   "<div class='olhar'><b>Olhar de prova:</b> na seção 'Arte e você' o livro propõe criar uma dança circular inspirada em movimentos e ritmos indígenas, celebrando a força da natureza, com chocalhos feitos de garrafas. Repare: a proposta junta tudo que a unidade ensinou — círculo, ritmo, instrumentos, adereços.</div>"
+  ],
+  perguntas:[
+   {tag:"conc",q:"Por que o livro diz que o ritmo é o elemento essencial da música indígena?",modelo:"Porque é o ritmo que comanda (é responsável por) a coreografia e o canto que acompanham essas músicas.",chk:["Falei que o ritmo comanda a coreografia?","Falei que ele também guia o canto?"]},
+   {tag:"apl",q:"Dê um exemplo de situação de cada tipo em que há música indígena: um ato biológico, uma proteção e uma celebração.",modelo:"Ato biológico: nascimento, puberdade, velhice ou morte. Proteção: contra doenças e epidemias. Celebração: vitória na guerra, caça ou pesca bem-sucedida, colheita fértil.",chk:["Dei um exemplo de cada um dos três tipos?","Os exemplos estão no livro?"]},
+   {tag:"apl",q:"Escolha cinco instrumentos citados no livro e separe-os em dois grupos do seu jeito (por exemplo: os que se batem e os que se sopram). Explique o critério.",modelo:"Ex.: batidos/chacoalhados — tambores, reco-recos, chocalhos, bastões de ritmo; soprados — pios, apitos, flautas, trombetas; girados no ar — zunidores. O corpo também pode ser instrumento. O critério precisa estar explicado.",chk:["Escolhi cinco instrumentos do livro?","Expliquei o critério da separação?"]}
+  ]
+ },
+ {
+  porto:"Compasso 6 · Unidade 7", emoji:"🔷", u:"u7",
+  titulo:"Quebrar a forma: o Cubismo",
+  texto:[
+   "Na arte, pode-se criar pela percepção e observação, pelas emoções e ideias, pela memória e imaginação. O <span class='destaque'>Cubismo</span> começou nos <b>primeiros anos do século XX, na França</b>, num mundo cheio de mudanças e contradições (inclusive as consequências da Primeira Guerra Mundial). Os artistas <b>romperam com os modelos</b> que valorizavam a perfeição das formas e a imagem tal como é vista.",
+   "No Cubismo não há preocupação em representar a realidade parada, de um ângulo só. A intenção é <span class='destaque'>reproduzir vários ângulos em um único plano</span>: o artista traz <b>múltiplos pontos de vista, proporções alteradas e formas fragmentadas</b> do rosto, do corpo, das paisagens e dos objetos. Assim, um retrato pode ser visto <b>de frente e de perfil ao mesmo tempo</b>, e formas e planos geométricos entrecortados representam as cenas reais, reformuladas na superfície plana da tela.",
+   "As <span class='destaque'>principais características</span> das obras cubistas são: <b>(1)</b> o tratamento geométrico de objetos, do corpo humano e da natureza; <b>(2)</b> a geometrização de formas e volumes; <b>(3)</b> o rompimento com a perspectiva; <b>(4)</b> a valorização do exercício mental, indo além da observação da realidade, para expressar ideias.",
+   "<div class='olhar'><b>Olhar de prova:</b> a atividade 'Quebre a imagem' (grade de linhas sobre a imagem, deslocar partes e redesenhar) é exatamente isso: <b>fragmentar e mostrar vários pontos de vista num plano só</b>. É uma releitura cubista.</div>"
+  ],
+  perguntas:[
+   {tag:"conc",q:"Qual era a intenção dos artistas cubistas ao pintar um objeto ou uma pessoa?",modelo:"Mostrar vários ângulos (vários pontos de vista) ao mesmo tempo, num único plano, com formas geométricas e fragmentadas, em vez de copiar a realidade como ela é vista de um lado só.",chk:["Falei de vários ângulos/pontos de vista ao mesmo tempo?","Falei de formas geométricas ou fragmentadas num só plano?"]},
+   {tag:"apl",q:"Explique por que a atividade 'quebre a imagem' (grade de linhas, deslocar as partes, redesenhar) resulta numa 'releitura cubista'. Use pelo menos duas características do Cubismo.",modelo:"Porque ela fragmenta a imagem em partes geométricas e reorganiza os pedaços, mostrando a figura de vários pontos de vista num mesmo plano e rompendo com a perspectiva normal — que são características do Cubismo.",chk:["Usei pelo menos duas características do Cubismo?","Relacionei cada uma com um passo da atividade (grade, deslocar, redesenhar)?"]},
+   {tag:"apl",q:"Um pintor desenha uma maçã exatamente como ela aparece, com sombra perfeita e um ângulo só. Isso é cubista? Explique o que ele precisaria mudar.",modelo:"Não é cubista: ele está copiando a realidade de um só ponto de vista. Para ser cubista, precisaria geometrizar a maçã, mostrá-la de vários ângulos ao mesmo tempo, fragmentar as formas e abandonar a perspectiva tradicional.",chk:["Disse que não é cubista e por quê?","Indiquei o que mudar (geometrizar, vários ângulos, fragmentar, sem perspectiva)?"]}
+  ]
+ },
+ {
+  porto:"Compasso 7 · Unidade 7", emoji:"🎭", u:"u7",
+  titulo:"Picasso e Braque, os criadores",
+  texto:[
+   "<span class='destaque'>As damas d'Avignon</span> (Pablo Picasso, <b>1907</b>) é considerada o <b>marco inicial do Cubismo</b>: rompeu com a perspectiva tradicional e com o jeito de representar as figuras. Picasso pintou a figura feminina com <b>linhas retas e formas geométricas</b>; as <b>faces foram inspiradas em máscaras africanas</b> e os corpos aparecem <b>facetados, angulosos e geometrizados</b>. A obra causou grande impacto e ficou famosíssima.",
+   "Em <span class='destaque'>Violino e clarinete em cima da mesa</span> (Georges Braque, <b>1913</b>) também se veem as características cubistas: os objetos são captados de <b>diferentes ângulos, todos ao mesmo tempo</b>. Mesmo fragmentadas, dá para reconhecer as silhuetas do violino e do clarinete, pedaços de jornal ou partitura (referência ao músico 'Bach') e texturas de madeira que lembram a mesa.",
+   "<span class='destaque'>Picasso e Braque</span> são considerados os <b>principais criadores do Cubismo</b>, porque trouxeram a ruptura na forma de representar a realidade.",
+   "<span class='destaque'>Pablo Picasso (1881–1973)</span> foi um <b>multiartista espanhol</b>: poeta, escultor, pintor, ceramista, gravurista — e, diferente de muitos, ficou <b>famoso ainda em vida</b>. Seus estilos mudavam com a vida: na <b>fase azul</b>, temas de solidão, morte, pobreza e desespero; ao se apaixonar, a <b>fase rosa</b> (tons rosa e avermelhados), com alegria, amor e romantismo; na <b>fase africana</b>, influenciado pela arte tribal, começou a desconstrução das imagens que deu início ao Cubismo."
+  ],
+  perguntas:[
+   {tag:"conc",q:"Por que As damas d'Avignon é considerada o marco inicial do Cubismo?",modelo:"Porque rompeu com a perspectiva tradicional e com a forma de representar as figuras: usou linhas retas e formas geométricas, rostos inspirados em máscaras africanas e corpos facetados e angulosos.",chk:["Falei do rompimento com a perspectiva/representação tradicional?","Citei pelo menos uma característica da obra (linhas retas, máscaras africanas, corpos facetados)?"]},
+   {tag:"apl",q:"Associe cada fase de Picasso (azul, rosa, africana) a um sentimento ou acontecimento, como se fosse uma legenda de três cores.",modelo:"Azul = solidão, morte, pobreza, desespero. Rosa = paixão, alegria, amor, romantismo. Africana = influência da arte tribal e começo da desconstrução das imagens (início do Cubismo).",chk:["Fiz a legenda das três fases?","Cada fase está ligada ao sentimento/acontecimento certo?"]},
+   {tag:"apl",q:"Olhando para Violino e clarinete em cima da mesa sem saber o título, que pistas (citadas no livro) ajudariam você a descobrir o que está na pintura?",modelo:"As silhuetas do violino e do clarinete, mesmo fragmentadas; os pedaços que parecem jornal ou partitura (com a referência a 'Bach'); e as texturas de madeira na parte de cima, que lembram a mesa.",chk:["Citei pelo menos duas pistas do livro?","Relacionei as pistas com o que elas representam (instrumentos, partitura, mesa)?"]}
+  ]
+ },
+ {
+  porto:"Compasso 8 · Unidade 7", emoji:"✂️", u:"u7",
+  titulo:"Analítico × Sintético",
+  texto:[
+   "Com o tempo, o Cubismo formou <span class='destaque'>duas tendências</span>: o Cubismo <b>analítico</b> e o Cubismo <b>sintético</b>.",
+   "O <span class='destaque'>Cubismo analítico (1910)</span> era voltado para a <b>estrutura dos objetos e sua decomposição</b>: o elemento aparece <b>fragmentado</b>, como em <b>O poeta</b> (Picasso, 1911). Os tons são <b>monocromáticos</b>, oscilando entre <b>marrom, cinza e ocre</b>.",
+   "O <span class='destaque'>Cubismo sintético (1913)</span> nasce como <b>reação à fragmentação excessiva</b> e à destruição da estrutura dos objetos. Traz a experimentação da <b>colagem</b>, com <b>materiais do cotidiano</b> — recortes de jornal, madeira, couro — colados na pintura, incorporando objetos reais para trazer um pouco de realidade à obra. As formas geralmente são vistas <b>de um ângulo apenas</b>, e as <b>cores são mais fortes</b>.",
+   "Colagens cubistas famosas: <b>Prato de frutas e ás de paus</b> (Braque, 1913: carvão, óleo e lápis sobre tela) e <b>Guitarra e Jornal</b> (Picasso, 1913: papéis impressos e tinta sobre papel)."
+  ],
+  perguntas:[
+   {tag:"conc",q:"Quais são as duas tendências do Cubismo e em que ano cada uma surge?",modelo:"Cubismo analítico (1910) e Cubismo sintético (1913).",chk:["Citei analítico e sintético?","Coloquei os anos certos (1910 e 1913)?"]},
+   {tag:"apl",q:"Você vê um quadro cheio de pedaços de jornal colados, com cores fortes e um violão visto de um ângulo só. Ele é analítico ou sintético? Justifique com três características.",modelo:"Sintético: tem colagem de materiais do cotidiano (jornal), cores mais fortes e a forma vista de um ângulo apenas — tudo característica do Cubismo sintético (1913).",chk:["Respondi 'sintético'?","Justifiquei com três características (colagem, cores fortes, um ângulo só)?"]},
+   {tag:"apl",q:"Explique por que o Cubismo sintético é chamado de 'reação' ao analítico. O que o analítico exagerava e o que o sintético fez diferente?",modelo:"O analítico fragmentava tanto os objetos que destruía a estrutura deles, com cores monocromáticas. O sintético reagiu a esse excesso: colou materiais reais (jornal, madeira, couro) para trazer realidade de volta, mostrou as formas de um ângulo só e usou cores mais fortes.",chk:["Disse o que o analítico exagerava (fragmentação, cores apagadas)?","Disse o que o sintético fez de diferente (colagem/objetos reais, um ângulo, cores fortes)?"]}
+  ]
+ },
+ {
+  porto:"Compasso 9 · Unidade 7", emoji:"⚙️", u:"u7",
+  titulo:"Léger, Tarsila e o autorretrato cubista",
+  texto:[
+   "<span class='destaque'>Fernand Léger (1881–1955)</span> é o artista das obras de abertura da unidade: <b>O cachorro na bola</b> (1953/54) e <b>Soldados jogando cartas</b> (1917). Nasceu em <b>Argentan, na Normandia</b> (França); foi <b>aprendiz de arquiteto</b> em Caen, mudou-se para <b>Paris em 1900</b> e estudou na Escola de Artes Decorativas. Em 1908 foi morar no edifício 'Ruche', onde ficou amigo de <b>Marc Chagall</b>.",
+   "A partir de <b>1911</b> conheceu <b>Picasso e Braque</b>, cuja influência cubista moldou seu estilo. A <b>Primeira Guerra</b> (1914) o levou ao front e marcou sua arte: depois da guerra, passou a representar <b>objetos mecânicos e industriais</b>, com <b>engrenagens e tanques</b>, admirando a modernidade. Na Segunda Guerra, exilou-se nos <b>Estados Unidos</b> (lecionou em Yale e no Mills College); voltou à França em <b>1945</b>, fez vitrais para a Igreja de Audincourt e um painel para o Palácio da ONU, e passou a pintar trabalhadores — sua obra mais famosa é <b>A Grande Parada (1954)</b>. Morreu em 1955.",
+   "<span class='destaque'>Olho na arte — Tarsila do Amaral (1886–1973):</span> os artistas brasileiros <b>não se entregaram ao Cubismo</b>, mas há <b>influências claras</b> dele, por exemplo na obra <b>São Paulo (1924)</b>, de Tarsila: uso de <b>formas geométricas</b> para representar pessoas, objetos e elementos naturais.",
+   "<span class='destaque'>Autorretrato cubista (Criar):</span> observar o próprio rosto <b>por diferentes ângulos</b> (de cima, de lado, com um olho fechado…), desenhar ou fotografar cada parte e montar, por <b>recorte e colagem</b>, o rosto em um <b>mesmo plano</b>, com vários pontos de vista numa superfície plana — uma das características principais do Cubismo."
+  ],
+  perguntas:[
+   {tag:"conc",q:"Como a Primeira Guerra Mundial mudou a arte de Fernand Léger?",modelo:"Ele foi ao front em 1914, e a experiência da guerra marcou sua arte: depois dela, passou a representar objetos mecânicos e industriais, com engrenagens e tanques de guerra, mostrando admiração pela modernidade e pelo progresso industrial.",chk:["Falei que ele foi à guerra (front)?","Falei que depois passou a pintar máquinas/engrenagens/objetos industriais?"]},
+   {tag:"apl",q:"Explique por que podemos dizer que Tarsila do Amaral foi 'influenciada' pelo Cubismo, mas não era uma pintora cubista.",modelo:"Porque, segundo o livro, os artistas brasileiros não aderiram ao Cubismo; Tarsila, porém, usou formas geométricas para representar pessoas, objetos e natureza (como em São Paulo, 1924), o que mostra influência do movimento sem fazer parte dele.",chk:["Disse que os brasileiros não aderiram ao Cubismo?","Expliquei em que a influência aparece (formas geométricas)?"]},
+   {tag:"apl",q:"Descreva, em três passos seus, como você faria um autorretrato cubista, e diga qual característica do Cubismo ele mostra.",modelo:"Ex.: (1) observar/fotografar meu rosto de vários ângulos; (2) desenhar ou imprimir cada parte; (3) recortar e colar as partes num mesmo plano, misturando os ângulos. Mostra a característica de reunir vários pontos de vista numa superfície plana.",chk:["Dei três passos?","Citei a característica dos vários pontos de vista num mesmo plano?"]}
+  ]
+ },
+ {
+  porto:"Compasso 10 · Unidade 7", emoji:"🩰", u:"u7",
+  titulo:"Corpo, movimento, som e espaço",
+  texto:[
+   "A <span class='destaque'>dança é a linguagem do corpo em movimento</span>. Quem dança escolhe os movimentos e passa de um para outro; cada troca expressa uma <b>intenção, uma ideia, uma expressão</b>. Mas a dança não é só isso: ela é a relação entre <b>movimento, corpo, espaço e som</b>, os quatro elementos que a compõem, em qualquer modalidade (balé, dança de rua, contemporânea…).",
+   "<b>Movimentos</b> são os gestos e todas as ações que mudam o corpo de lugar ou só mudam sua posição: andar, cair, correr, girar, abanar, cumprimentar, deitar, levantar, piscar, bocejar. Na dança, cada parte do corpo ocupa uma das <span class='destaque'>três áreas espaciais</span>: <b>alta</b> (a cabeça), <b>média</b> (o quadril) e <b>baixa</b> (os pés) — e, como o corpo é articulado, essas áreas se alternam.",
+   "<b>Qualquer pessoa pode dançar</b>, amadora ou especialista, com qualquer tipo de corpo (baixo, alto, gordo, magro, com deficiência ou não); cada um tem habilidades e limitações. O <b>som</b> vem das fontes sonoras: músicas, respiração, bater dos pés no chão, palmas, arrastar do corpo. As relações entre movimento, espaço e corpo viram <b>coreografia</b>. As <span class='destaque'>dimensões do espaço</span> também são três: <b>amplitude</b> (movimento na horizontal), <b>comprimento</b> (na vertical) e <b>profundidade</b> (para a frente, para os lados e diagonais).",
+   "<span class='destaque'>Consciência corporal</span> é a habilidade de <b>conhecer o próprio corpo</b>, com suas habilidades e limitações; desenvolve-se com <b>respiração, alongamento e força</b>; sua falta pode causar problemas de <b>postura e equilíbrio</b> e dificuldade de entender direção e espaço. Não é 'saber dançar certinho no ritmo'. O livro propõe dois jogos: o <b>Twister</b> (pontos de apoio: cada cor/forma no chão = uma parte do corpo) e o <b>improviso em duplas</b> (esticar, dobrar, rolar, saltar… sem perder o <b>contato visual</b>)."
+  ],
+  perguntas:[
+   {tag:"conc",q:"Quais são os quatro elementos que compõem a dança, segundo o livro? E quais são as três áreas espaciais do corpo?",modelo:"Elementos: movimento, corpo, espaço e som. Áreas espaciais: alta (cabeça), média (quadril) e baixa (pés).",chk:["Citei os quatro elementos (movimento, corpo, espaço, som)?","Citei as três áreas (alta, média, baixa) e o que ocupa cada uma?"]},
+   {tag:"apl",q:"Um dançarino dá um salto para cima, depois corre de um lado para o outro e por fim avança na diagonal. Diga qual dimensão do espaço ele usa em cada momento.",modelo:"Salto para cima = comprimento (vertical); correr de um lado para o outro = amplitude (horizontal); avançar na diagonal = profundidade (frente, lados e diagonais).",chk:["Associei cada movimento a uma dimensão?","Usei os nomes certos (comprimento, amplitude, profundidade)?"]},
+   {tag:"apl",q:"Um colega diz que consciência corporal é 'saber dançar certinho seguindo o ritmo da música'. Explique por que ele está errado e o que é consciência corporal de verdade.",modelo:"Está errado porque consciência corporal não é dançar no ritmo: é conhecer o próprio corpo, suas habilidades e limitações. Ela se desenvolve com respiração, alongamento e força, e a falta dela causa problemas de postura, equilíbrio e noção de direção e espaço.",chk:["Disse que não é só dançar no ritmo?","Expliquei que é conhecer o próprio corpo (habilidades e limitações)?"]}
+  ]
+ }
+];
+
+/* ====== LINHA DO TEMPO (marcos do livro; clique leva ao compasso) ====== */
+var MARCOS=[
+ {ano:"1881",ev:"Nascem Picasso (Espanha) e Léger (Argentan, França)",quem:"Compasso 7 e 9",b:6,u:"u7"},
+ {ano:"1886",ev:"Nasce Tarsila do Amaral",quem:"Compasso 9",b:8,u:"u7"},
+ {ano:"1900",ev:"Léger muda-se para Paris",quem:"Compasso 9",b:8,u:"u7"},
+ {ano:"1907",ev:"As damas d'Avignon — marco inicial do Cubismo",quem:"Picasso · Compasso 7",b:6,u:"u7"},
+ {ano:"1907",ev:"1ª exposição 'Sob o olhar de Pataxó'",quem:"Arissana Pataxó · Compasso 2",b:1,u:"u6"},
+ {ano:"1910",ev:"Cubismo analítico",quem:"Compasso 8",b:7,u:"u7"},
+ {ano:"1911",ev:"O poeta (Picasso); Léger conhece Picasso e Braque",quem:"Compassos 8 e 9",b:7,u:"u7"},
+ {ano:"1913",ev:"Cubismo sintético: Violino e clarinete; Prato de frutas; Guitarra e Jornal",quem:"Braque e Picasso · Compassos 7 e 8",b:7,u:"u7"},
+ {ano:"1914",ev:"Léger vai ao front da Primeira Guerra",quem:"Compasso 9",b:8,u:"u7"},
+ {ano:"1917",ev:"Soldados jogando cartas",quem:"Léger · Compasso 9",b:8,u:"u7"},
+ {ano:"1924",ev:"São Paulo — influência cubista no Brasil",quem:"Tarsila do Amaral · Compasso 9",b:8,u:"u7"},
+ {ano:"1937",ev:"Retrato de Marie-Thérèse Walter",quem:"Picasso · Compasso 9",b:8,u:"u7"},
+ {ano:"1945",ev:"Léger volta à França (vitrais, painel da ONU)",quem:"Compasso 9",b:8,u:"u7"},
+ {ano:"1953–54",ev:"O cachorro na bola; A Grande Parada (1954)",quem:"Léger · Compasso 9",b:8,u:"u7"},
+ {ano:"1955",ev:"Morre Léger",quem:"Compasso 9",b:8,u:"u7"},
+ {ano:"1973",ev:"Morrem Picasso e Tarsila",quem:"Compassos 7 e 9",b:6,u:"u7"},
+ {ano:"2019",ev:"Ritual de casamento pataxó na festa Aragwaksá",quem:"Compasso 4",b:3,u:"u6"},
+ {ano:"2023",ev:"IBGE: 1,7 milhão de indígenas; ~320 etnias",quem:"Compasso 2",b:1,u:"u6"}
+];
+function renderTL(){
+  var t=document.getElementById('tl'); var h='';
+  MARCOS.forEach(function(m){ h+='<div class="tl-item '+m.u+'" onclick="irBloco('+m.b+')"><div class="ano">'+m.ano+'</div><div class="ev">'+m.ev+'</div><div class="quem">'+m.quem+'</div></div>'; });
+  t.innerHTML=h;
+}
+function irBloco(i){ var el=document.getElementById('bloco'+i); if(el) el.scrollIntoView({behavior:'smooth',block:'start'}); }
+
+/* ====== ESTADO E PERSISTÊNCIA ====== */
+var CHAVE=KIT+'_leitura_v1';
+var mem={};
+var estado=carregar();
+
+function carregar(){
+  try{ var s=localStorage.getItem(CHAVE); if(s) return JSON.parse(s); }catch(e){ if(mem[CHAVE]) return JSON.parse(mem[CHAVE]); }
+  return {blocos:{}};
+}
+function calcProgresso(){
+  var conf=0, chkPend=0;
+  BLOCOS.forEach(function(bloco,i){
+    var b=estado.blocos[i]; if(!b||!b.conferido) return; conf++;
+    bloco.perguntas.forEach(function(p,j){ var ep=(b.perguntas&&b.perguntas[j])||{chk:{}}; p.chk.forEach(function(pt,k){ if(!ep.chk||!ep.chk[k]) chkPend++; }); });
+  });
+  estado.progresso={conferidos:conf,total:BLOCOS.length,chkPendentes:chkPend};
+  if(conf===BLOCOS.length && chkPend===0){ if(!estado.concluido){ estado.concluido=true; estado.concluidoEm=new Date().toISOString(); } }
+  return estado.progresso;
+}
+function salvar(){
+  calcProgresso();
+  var s=JSON.stringify(estado);
+  try{ localStorage.setItem(CHAVE,s); }catch(e){ mem[CHAVE]=s; }
+  var d=new Date();
+  document.getElementById('salvo').textContent='💾 Salvo às '+d.toLocaleTimeString('pt-BR')+' de '+d.toLocaleDateString('pt-BR');
+  atualizarTrilhaFim();
+}
+function atualizarTrilhaFim(){
+  var p=estado.progresso||calcProgresso();
+  var box=document.getElementById('trilha-fim'), txt=document.getElementById('trilha-fim-txt'), btn=document.getElementById('btn-prox');
+  var h3=box.querySelector('h3');
+  if(estado.concluido||trilhaLiberada()){
+    h3.textContent='✅ Leitura concluída — Quiz destravado!';
+    txt.textContent=estado.concluido?'Você conferiu os 10 compassos e respondeu a autoavaliação. Agora teste o que aprendeu.':'Trilha liberada pelos pais.';
+    btn.classList.remove('off');
+  } else {
+    h3.textContent='🔒 Próxima etapa: Quiz';
+    var faltam=p.total-p.conferidos;
+    txt.textContent=faltam>0 ? 'Destrava quando você conferir os '+p.total+' compassos (faltam '+faltam+').' : 'Falta responder a autoavaliação Sim/Não de '+p.chkPendentes+' ponto(s) para destravar.';
+    btn.classList.add('off');
+  }
+  marcarNav();
+}
+function estBloco(i){ if(!estado.blocos[i]) estado.blocos[i]={aberto:i===0,conferido:false,perguntas:{}}; return estado.blocos[i]; }
+function estPerg(i,j){ var b=estBloco(i); if(!b.perguntas[j]) b.perguntas[j]={resp:'',warned:false,red:false,tentou:'',chk:{}}; return b.perguntas[j]; }
+
+/* ====== ANTICÓPIA (motor validado — Português 7º, 08/10/2026) ====== */
+function normPal(s){
+  return (s||'').toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/<[^>]*>/g,' ').replace(/[^a-z0-9\s]/g,' ').replace(/\s+/g,' ').trim().split(' ').filter(Boolean);
+}
+function maiorRun(aw,bw){
+  var bStr=' '+bw.join(' ')+' ', best=0;
+  for(var i=0;i<aw.length;i++){
+    for(var len=aw.length-i; len>0; len--){
+      var sub=aw.slice(i,i+len).join(' ');
+      if(bStr.indexOf(' '+sub+' ')>=0){ if(len>best)best=len; break; }
+    }
+  }
+  return best;
+}
+function cobertoPorRuns(aw,bw,minRun){
+  var bStr=' '+bw.join(' ')+' ', cov=new Array(aw.length).fill(false);
+  for(var i=0;i<aw.length;i++){
+    for(var len=aw.length-i; len>=minRun; len--){
+      var sub=aw.slice(i,i+len).join(' ');
+      if(bStr.indexOf(' '+sub+' ')>=0){ for(var k=i;k<i+len;k++)cov[k]=true; break; }
+    }
+  }
+  return cov.filter(Boolean).length;
+}
+function ehCopia(resp, textoBloco, pergunta){
+  var a=normPal(resp), src=normPal(textoBloco), q=normPal(pergunta);
+  if(a.length<5) return false;
+  var qStr=' '+q.join(' ')+' ', keep=new Array(a.length).fill(true);
+  for(var i=0;i<a.length;i++){
+    for(var len=a.length-i; len>=4; len--){
+      var sub=a.slice(i,i+len).join(' ');
+      if(qStr.indexOf(' '+sub+' ')>=0){ for(var k=i;k<i+len;k++)keep[k]=false; break; }
+    }
+  }
+  var af=a.filter(function(w,idx){return keep[idx];});
+  if(af.length<5) return false;
+  var run=maiorRun(af,src);
+  var cov=cobertoPorRuns(af,src,5);
+  var ratio=cov/af.length;
+  return run>=8 || ratio>0.6;
+}
+
+/* ====== RENDER ====== */
+function textoPlano(bloco){ return bloco.texto.join(' '); }
+
+function render(){
+  var cont=document.getElementById('blocos'); cont.innerHTML='';
+  BLOCOS.forEach(function(bloco,i){
+    var b=estBloco(i);
+    var div=document.createElement('div'); div.className='bloco '+bloco.u+(b.aberto?'':' travado'); div.id='bloco'+i;
+    var html='<div class="bloco-cab"><div class="num">'+(i+1)+'</div><div><div class="porto">'+bloco.porto+'</div><h3>'+bloco.emoji+' '+bloco.titulo+'</h3></div></div>';
+    if(!b.aberto){
+      html+='<div class="cadeado">🔒 Este compasso abre quando você conferir o compasso anterior.</div>';
+      div.innerHTML=html; cont.appendChild(div); return;
+    }
+    html+='<div class="bloco-corpo"><div class="texto">';
+    bloco.texto.forEach(function(p){ html+= (p.indexOf('<div')===0? p : '<p>'+p+'</p>'); });
+    html+='</div>';
+    bloco.perguntas.forEach(function(p,j){
+      var ep=estPerg(i,j);
+      var tagTxt=p.tag==='conc'?'Conceito':'Aplicação';
+      html+='<div class="perg'+(ep.red?' red':'')+'" id="perg'+i+'_'+j+'">';
+      html+='<span class="tag '+p.tag+'">'+tagTxt+'</span>';
+      html+='<label>'+(j+1)+'. '+p.q+'</label>';
+      html+='<textarea id="ta'+i+'_'+j+'" oninput="digitou('+i+','+j+')">'+(ep.resp||'')+'</textarea>';
+      html+='<div class="aviso" id="av'+i+'_'+j+'"></div>';
+      html+='<div class="modelo" id="mod'+i+'_'+j+'"><span class="lab">Resposta-modelo</span><p>'+p.modelo+'</p>';
+      html+='<div class="chk" id="chk'+i+'_'+j+'"></div></div>';
+      html+='</div>';
+    });
+    html+='<button class="conferir" id="conf'+i+'" onclick="conferir('+i+')">✔️ Conferir este compasso</button>';
+    html+='<div class="status-bloco" id="st'+i+'"></div>';
+    if(i<BLOCOS.length-1){ html+='<div class="prox" id="px'+i+'"></div>'; }
+    html+='</div>';
+    div.innerHTML=html;
+    cont.appendChild(div);
+  });
+  BLOCOS.forEach(function(bloco,i){
+    var b=estBloco(i);
+    if(b.aberto && b.conferido){ mostrarConferido(i); }
+    atualizarBotao(i);
+  });
+  atualizarRelatorio();
+  atualizarTrilhaFim();
+}
+
+function digitou(i,j){
+  var ep=estPerg(i,j);
+  ep.resp=document.getElementById('ta'+i+'_'+j).value;
+  if(ep.red){
+    var bloco=BLOCOS[i];
+    if(!ehCopia(ep.resp, textoPlano(bloco), bloco.perguntas[j].q)){
+      ep.red=false;
+      var pd=document.getElementById('perg'+i+'_'+j); if(pd) pd.classList.remove('red');
+      var av=document.getElementById('av'+i+'_'+j); if(av){av.className='aviso'; av.textContent='';}
+    }
+  }
+  atualizarBotao(i);
+  salvar();
+  atualizarRelatorio();
+}
+
+function atualizarBotao(i){
+  var b=estBloco(i); if(!b.aberto) return;
+  var btn=document.getElementById('conf'+i); if(!btn) return;
+  var todas=true;
+  BLOCOS[i].perguntas.forEach(function(p,j){
+    var v=(document.getElementById('ta'+i+'_'+j)||{}).value||estPerg(i,j).resp||'';
+    if(v.trim().length<3) todas=false;
+  });
+  btn.disabled=!todas;
+}
+
+function conferir(i){
+  var bloco=BLOCOS[i], b=estBloco(i);
+  var algumBloqueado=false;
+  bloco.perguntas.forEach(function(p,j){
+    var ep=estPerg(i,j);
+    ep.resp=document.getElementById('ta'+i+'_'+j).value;
+    var av=document.getElementById('av'+i+'_'+j);
+    var copia=ehCopia(ep.resp, textoPlano(bloco), p.q);
+    if(copia){
+      if(!ep.warned){
+        ep.warned=true; ep.tentou=ep.resp;
+        av.className='aviso amarelo';
+        av.innerHTML='✋ Boa parte da sua resposta está igual ao texto. Tente <b>reescrever com as suas palavras</b> — explique como se fosse para um amigo, sem olhar o texto. Pode ficar mais curto e simples: o que vale é ser <b>SEU</b>.';
+        algumBloqueado=true;
+      } else {
+        ep.red=true;
+        av.className='aviso vermelho';
+        av.innerHTML='🔴 Esta resposta continua muito parecida com o texto. Ela foi aceita, mas ficou marcada para revisar. Se reescrever com as suas palavras, a marca some.';
+        document.getElementById('perg'+i+'_'+j).classList.add('red');
+      }
+    } else {
+      ep.red=false;
+      if(av){ av.className='aviso'; av.textContent=''; }
+      var pd=document.getElementById('perg'+i+'_'+j); if(pd) pd.classList.remove('red');
+    }
+  });
+  salvar();
+  if(algumBloqueado){
+    document.getElementById('st'+i).innerHTML='<span style="color:var(--ambar)">✍️ Reescreva as respostas marcadas em amarelo e clique em Conferir de novo.</span>';
+    return;
+  }
+  b.conferido=true;
+  if(i<BLOCOS.length-1){ estBloco(i+1).aberto=true; }
+  salvar();
+  render();
+  var alvo=document.getElementById('bloco'+i);
+  if(alvo) alvo.scrollIntoView({behavior:'smooth',block:'start'});
+}
+
+function mostrarConferido(i){
+  var bloco=BLOCOS[i];
+  bloco.perguntas.forEach(function(p,j){
+    var ep=estPerg(i,j);
+    var mod=document.getElementById('mod'+i+'_'+j); if(mod) mod.classList.add('show');
+    if(ep.red){ var pd=document.getElementById('perg'+i+'_'+j); if(pd) pd.classList.add('red');
+      var av=document.getElementById('av'+i+'_'+j); if(av){av.className='aviso vermelho'; av.innerHTML='🔴 Resposta marcada para revisar (muito parecida com o texto). Reescreva com as suas palavras para tirar a marca.';}
+    }
+    var chk=document.getElementById('chk'+i+'_'+j); if(chk){
+      var h='<b style="font-size:.8rem;color:#8fe0b4">Confira você: a sua resposta…</b>';
+      p.chk.forEach(function(pt,k){
+        var val=ep.chk[k]||'';
+        h+='<div class="item"><span>'+pt+'</span><span class="simnao">'
+         +'<button class="sim'+(val==='sim'?' ativo':'')+'" onclick="marcarChk('+i+','+j+','+k+',\'sim\')">Sim</button>'
+         +'<button class="nao'+(val==='nao'?' ativo':'')+'" onclick="marcarChk('+i+','+j+','+k+',\'nao\')">Não</button>'
+         +'</span></div>';
+      });
+      chk.innerHTML=h;
+    }
+  });
+  atualizarStatusBloco(i);
+  var btn=document.getElementById('conf'+i); if(btn){ btn.textContent='✔️ Compasso conferido'; btn.disabled=true; }
+  if(i<BLOCOS.length-1){
+    var px=document.getElementById('px'+i);
+    if(px) px.innerHTML='<a href="#bloco'+(i+1)+'" onclick="irBloco('+(i+1)+');return false;">➡️ Ir para o próximo compasso</a>';
+  }
+}
+
+function marcarChk(i,j,k,val){
+  var ep=estPerg(i,j); ep.chk[k]=val;
+  salvar(); mostrarConferido(i); atualizarStatusBloco(i); atualizarRelatorio();
+}
+
+function statusPergunta(i,j){
+  var ep=estPerg(i,j), p=BLOCOS[i].perguntas[j];
+  if(ep.red) return 'revisar';
+  var temNao=false, todasResp=true;
+  p.chk.forEach(function(pt,k){ if(ep.chk[k]==='nao') temNao=true; if(!ep.chk[k]) todasResp=false; });
+  if(temNao) return 'revisar';
+  if(!todasResp) return 'pendente';
+  return 'ok';
+}
+function atualizarStatusBloco(i){
+  var st=document.getElementById('st'+i); if(!st) return;
+  var revisar=false, pendente=false;
+  BLOCOS[i].perguntas.forEach(function(p,j){ var s=statusPergunta(i,j); if(s==='revisar')revisar=true; if(s==='pendente')pendente=true; });
+  if(revisar) st.innerHTML='<span style="color:#ffb3b3">🔁 Este compasso tem pontos para revisar.</span>';
+  else if(pendente) st.innerHTML='<span style="color:var(--ambar)">📝 Responda a autoavaliação (Sim/Não) de cada pergunta.</span>';
+  else st.innerHTML='<span style="color:#8fe0b4">✅ Compasso concluído com sucesso!</span>';
+  atualizarRelatorio();
+}
+
+function atualizarRelatorio(){
+  var lista=[], totalConf=0, totalRed=0, totalNao=0;
+  BLOCOS.forEach(function(bloco,i){
+    var b=estBloco(i); if(!b.conferido) return; totalConf++;
+    bloco.perguntas.forEach(function(p,j){
+      var ep=estPerg(i,j);
+      if(ep.red){ totalRed++; lista.push('Compasso '+(i+1)+' ('+bloco.titulo+'): pergunta '+(j+1)+' — resposta muito parecida com o texto.'); }
+      p.chk.forEach(function(pt,k){ if(ep.chk[k]==='nao'){ totalNao++; lista.push('Compasso '+(i+1)+' ('+bloco.titulo+'): revisar — "'+pt+'"'); } });
+    });
+  });
+  var rev=document.getElementById('revisar'), rl=document.getElementById('revisar-lista');
+  if(lista.length){ rev.style.display='block'; rl.innerHTML=lista.map(function(x){return '<li>'+x+'</li>';}).join(''); }
+  else { rev.style.display='none'; rl.innerHTML=''; }
+  var rc=document.getElementById('rel-conteudo');
+  rc.innerHTML='<b>Compassos conferidos:</b> '+totalConf+' de '+BLOCOS.length+'.<br>'
+    +'<b>Respostas marcadas (muito parecidas com o texto):</b> '+totalRed+'.<br>'
+    +'<b>Pontos marcados como "Não" na autoavaliação:</b> '+totalNao+'.<br>'
+    +(lista.length? '<span style="color:#ffb3b3">Há '+lista.length+' ponto(s) para revisar (lista acima).</span>' : '<span style="color:#8fe0b4">Sem pontos pendentes para revisar. 👏</span>');
+}
+
+/* ====== EXPORTAR / IMPORTAR / ZERAR ====== */
+function exportar(){
+  var dados=JSON.stringify(estado,null,2);
+  var blob=new Blob([dados],{type:'application/json'});
+  var a=document.createElement('a'); a.href=URL.createObjectURL(blob);
+  a.download='leitura-guiada_compasso-das-formas.json'; a.click();
+}
+function importar(ev){
+  var f=ev.target.files[0]; if(!f) return;
+  var r=new FileReader();
+  r.onload=function(){ try{ estado=JSON.parse(r.result); salvar(); render(); mostrarModal('✅ Progresso importado!',false); }catch(e){ mostrarModal('❌ Arquivo inválido.',false); } };
+  r.readAsText(f);
+}
+var acaoZerar=null;
+function pedirZerar(){ acaoZerar=true; mostrarModal('Tem certeza que quer apagar TODO o progresso desta leitura? (O Quiz continua destravado se já tiver sido destravado.)',true); }
+function mostrarModal(txt,confirmar){
+  document.getElementById('modal-txt').innerHTML=txt;
+  document.getElementById('modal').classList.add('show');
+  document.getElementById('modal-cancel').style.display=confirmar?'inline-block':'none';
+  document.getElementById('modal-ok').textContent=confirmar?'Sim, apagar':'Ok';
+  document.getElementById('modal-ok').onclick=function(){ if(confirmar && acaoZerar){ var c=estado.concluido, ce=estado.concluidoEm; estado={blocos:{}}; if(c){estado.concluido=true; estado.concluidoEm=ce;} salvar(); render(); } acaoZerar=null; fecharModal(); };
+}
+function fecharModal(){ document.getElementById('modal').classList.remove('show'); }
+
+renderTL();
+render();
+</script>
+</body>
+</html>

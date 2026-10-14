@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resumo · Compasso das Formas · Arte 7º</title>
+<style>
+  :root{--palco:#0f0e14;--palco2:#1a1823;--aco:#2b2838;--aco2:#3b374c;--ambar:#f2a93b;--magenta:#ff4d8d;--ciano:#35d0e0;--verde:#3ddc84;--vermelho:#ff5d5d;--texto:#efeaf2;--cinza:#9a94a8}
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',system-ui,Arial,sans-serif;background:radial-gradient(1100px 480px at 50% -10%,#2a1a0e,#0f0e14 60%),var(--palco);color:var(--texto);line-height:1.6;padding-bottom:60px}
+  header{background:linear-gradient(120deg,#3a2308,#5a3a10);padding:26px 18px;text-align:center;box-shadow:0 4px 18px rgba(0,0,0,.5);border-bottom:4px solid var(--ambar)}
+  header .selo{font-size:.78rem;letter-spacing:2px;color:#ffe3b3;text-transform:uppercase}
+  header h1{font-size:1.5rem;margin:6px 0 2px}
+  header p{color:#f5e2c4;font-size:.92rem}
+  .wrap{max-width:900px;margin:0 auto;padding:16px}
+  .barra-nav{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin:16px 0}
+  .barra-nav a{background:var(--palco2);color:var(--texto);text-decoration:none;padding:7px 12px;border-radius:20px;font-size:.85rem;border:1px solid var(--aco)}
+  .barra-nav a.on{background:var(--ambar);color:#2a1600;font-weight:bold}
+  .barra-nav a.lock{opacity:.5}
+  .intro{background:var(--palco2);border:1px solid var(--aco);border-radius:14px;padding:16px;margin-bottom:16px}
+  .intro h2{color:var(--ambar);font-size:1.1rem;margin-bottom:8px}
+  .sec{margin:26px 0 12px;display:flex;align-items:center;gap:10px}
+  .sec h2{font-size:1.25rem}
+  .sec .pill{font-size:.7rem;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:12px;background:var(--ambar);color:#2a1600;font-weight:bold}
+  .sec .pill.u7{background:var(--ciano);color:#04232a}
+  .grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px}
+  .card{background:var(--palco2);border:1px solid var(--aco);border-radius:14px;padding:14px;border-top:4px solid var(--ambar)}
+  .card.u7{border-top-color:var(--ciano)}
+  .card h3{font-size:1rem;margin-bottom:8px}
+  .card ul{margin-left:18px}
+  .card li{margin-bottom:5px;font-size:.93rem}
+  .card b{color:var(--ambar)}
+  .card.u7 b{color:var(--ciano)}
+  .postit{background:#ffe88a;color:#3a2a00;border-radius:4px;padding:12px 14px;font-size:.92rem;box-shadow:3px 4px 10px rgba(0,0,0,.4);transform:rotate(-1deg);margin:12px 0}
+  .postit b{color:#7a4a00}
+  .peg{background:#3a1414;border:2px solid var(--vermelho);border-radius:12px;padding:12px 14px;margin:12px 0;font-size:.92rem}
+  .peg b{color:#ffb3b3}
+  /* flip cards */
+  .flips{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px}
+  .flip{perspective:900px;height:170px;cursor:pointer}
+  .flip .inner{position:relative;width:100%;height:100%;transition:transform .5s;transform-style:preserve-3d}
+  .flip.on .inner{transform:rotateY(180deg)}
+  .flip .face{position:absolute;inset:0;backface-visibility:hidden;border-radius:12px;padding:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;font-size:.9rem}
+  .flip .front{background:linear-gradient(135deg,#2b1f38,#1a1823);border:1px solid var(--aco2);font-weight:bold}
+  .flip .front small{display:block;color:var(--cinza);font-weight:normal;font-size:.72rem;margin-top:6px}
+  .flip .back{background:#0e2b1f;border:1px solid var(--verde);transform:rotateY(180deg)}
+  .tl{display:flex;gap:10px;overflow-x:auto;padding:10px 4px}
+  .tl-item{flex:0 0 140px;background:#141220;border:1px solid var(--aco2);border-top:4px solid var(--ciano);border-radius:10px;padding:10px;font-size:.82rem}
+  .tl-item .ano{font-weight:bold;color:var(--ciano);font-size:1rem}
+  .tabela{width:100%;border-collapse:collapse;font-size:.88rem;margin-top:8px}
+  .tabela th,.tabela td{border:1px solid var(--aco);padding:7px 9px;text-align:left;vertical-align:top}
+  .tabela th{background:#231a2c}
+  .gloss{columns:2;column-gap:18px}
+  .gloss div{break-inside:avoid;margin-bottom:8px;font-size:.9rem}
+  .gloss b{color:var(--ambar)}
+  @media(max-width:600px){.gloss{columns:1}}
+  .fim{background:linear-gradient(120deg,#1b2a1f,#163a2a);border:2px solid var(--verde);border-radius:16px;padding:18px;margin-top:24px;text-align:center}
+  .fim h3{color:#8fe0b4;margin-bottom:8px}
+  .fim button{background:var(--verde);color:#04231a;border:none;border-radius:10px;padding:12px 20px;font-size:1rem;font-weight:bold;margin:6px}
+  .fim button:disabled{background:#2a2636;color:#6f6a7c;cursor:not-allowed}
+  .fim a.btn{display:inline-block;margin:6px;background:var(--ciano);color:#04232a;text-decoration:none;font-weight:bold;padding:12px 20px;border-radius:10px}
+  .fim a.btn.off{background:#2a2636;color:#6f6a7c;pointer-events:none}
+  .painel{display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;background:var(--palco2);border:1px solid var(--aco);border-radius:12px;padding:10px 14px;margin-bottom:16px;font-size:.85rem}
+  .mini{background:var(--palco);color:var(--texto);border:1px solid var(--aco2);border-radius:8px;padding:6px 10px;font-size:.8rem;cursor:pointer;font-family:inherit}
+  .modal-bg{display:none;position:fixed;inset:0;background:rgba(5,4,8,.96);z-index:50;align-items:center;justify-content:center;padding:16px}
+  .modal-bg.show{display:flex}
+  .modal{background:var(--palco2);border:1px solid var(--ciano);border-radius:14px;padding:22px;max-width:440px;text-align:center}
+  .modal p{margin-bottom:14px}
+  .modal .big{font-size:2.2rem}
+  .modal a{display:inline-block;background:var(--ciano);color:#04232a;border-radius:8px;padding:10px 18px;font-weight:bold;text-decoration:none}
+  .rodape{text-align:center;color:var(--cinza);font-size:.8rem;margin-top:24px}
+</style>
+</head>
+<body>
+<header>
+  <div class="selo">Compasso das Formas · Arte 7º ano · CCF</div>
+  <h1>🗺️ Resumo</h1>
+  <p>Tudo que cai, em cards, cartas e post-its · Unidades 6 e 7</p>
+</header>
+
+<div class="wrap">
+  <nav class="barra-nav" id="nav">
+    <a href="leitura-guiada.html">📖 Leitura Guiada</a>
+    <a href="quiz.html">🎯 Quiz</a>
+    <a class="on" href="resumo.html">🗺️ Resumo</a>
+    <a href="simulado.html" data-etapa="simulado">📝 Simulado</a>
+    <a href="index.html">🏠 Início</a>
+  </nav>
+
+  <div class="intro">
+    <h2>🗺️ Mapa da coreografia</h2>
+    <p>Use este resumo para fechar as dúvidas que o Quiz mostrou e para revisar na véspera. Leia até o fim: lá embaixo está o botão <b>"Li o resumo até o fim"</b>, que destrava o <b>📝 Simulado</b>.</p>
+  </div>
+  <div class="painel"><span id="salvo">📏 Rolagem máxima: 0%</span><button class="mini" onclick="exportar()">📥 Exportar</button></div>
+
+  <div class="sec"><span class="pill">Unidade 6</span><h2>🪶 O corpo pintado</h2></div>
+  <div class="grid">
+    <div class="card"><h3>🪶 O corpo que fala</h3><ul>
+      <li>Adornos, roupas, pinturas e marcas corporais <b>comunicam valores culturais</b>.</li>
+      <li>Podem indicar: <b>papel</b> na sociedade, <b>passagem de fase</b> da vida, <b>pertencimento</b> ao grupo, <b>apreço estético</b>, <b>posição hierárquica</b>.</li>
+      <li>Exemplo do livro: o <b>Retrato multicolorido</b> (crianças de várias culturas, p. 86).</li></ul></div>
+    <div class="card"><h3>🎨 Pintura corporal</h3><ul>
+      <li>IBGE 2023: <b>1,7 milhão</b> de indígenas; 51,2% na Amazônia Legal; cerca de <b>320 etnias</b>.</li>
+      <li>Funções: <b>embelezar</b>, <b>identidade</b>, <b>conexão</b> com natureza/mitologia/forças (rituais), <b>cura</b>, <b>luto</b>.</li>
+      <li>Cada povo tem técnicas e padrões próprios, com significado por parte do corpo.</li>
+      <li>Artista: <b>Arissana Pataxó</b> (Bahia; exposição "Sob o olhar de Pataxó", 2007; oficinas).</li></ul></div>
+    <div class="card"><h3>🧪 As duas tintas</h3><ul>
+      <li><b>Vermelha = urucum</b>: pó da semente + água. Também corante de comida e medicinal.</li>
+      <li><b>Preta = jenipapo verde</b>: polpa fervida com água; começa <b>sem cor</b> e fica preta depois de descansar. Fruta madura: vitamina C e ferro.</li>
+      <li>Receitas passam de <b>geração em geração</b>.</li></ul></div>
+    <div class="card"><h3>💃 Dança indígena</h3><ul>
+      <li>Coletiva: festa, ritual místico, celebração, agradecimento.</li>
+      <li><b>Passos contidos e rítmicos</b>, gestos do cotidiano; voz em <b>murmúrios</b>, <b>flautas</b> e <b>maracas</b> (chocalho de cabaça, sementes e pedras).</li>
+      <li><b>Círculo</b> = todos se veem, iguais, do mesmo grupo.</li>
+      <li>"Índio" (erro dos colonizadores: Índias) × <b>"indígena"</b> (nativo, originário).</li></ul></div>
+    <div class="card"><h3>🥁 Música indígena</h3><ul>
+      <li>Preserva <b>memória e tradições</b>.</li>
+      <li>Situações: <b>atos biológicos</b> (nascimento, puberdade, velhice, morte), <b>proteção</b> (doenças), <b>celebração</b> (guerra, caça, pesca, colheita).</li>
+      <li><b>Ritmo</b> = elemento essencial (comanda coreografia e canto).</li>
+      <li>Instrumentos: tambores, reco-recos, chocalhos, bastões de ritmo, pios, apitos, flautas, trombetas, zunidores, <b>o corpo</b>.</li></ul></div>
+  </div>
+
+  <div class="sec"><span class="pill">Unidade 6</span><h2>🃏 Cartas dos povos (clique para virar)</h2></div>
+  <div class="flips">
+    <div class="flip" onclick="this.classList.toggle('on')"><div class="inner"><div class="face front">Asurini do Xingu<small>onde vivem? o que pintam?</small></div><div class="face back">Rio Xingu (PA). Geométricos preto/vermelho: <b>pata de jabuti, rabo de macaco, favo de mel</b>.</div></div></div>
+    <div class="flip" onclick="this.classList.toggle('on')"><div class="inner"><div class="face front">Karajá<small>onde vivem? marca registrada?</small></div><div class="face back">Rio Araguaia (GO, TO, PA, MT). Faixas e listras = animais. <b>Dois círculos nas faces</b> na puberdade.</div></div></div>
+    <div class="flip" onclick="this.classList.toggle('on')"><div class="inner"><div class="face front">Kayapó xikrin<small>função? visual típico?</small></div><div class="face back">Entre Xingu e Tocantins (PA). Função <b>social e religiosa</b>: pertencimento, ornamento, status. Peixes, antas, onças, cobras. <b>Rosto, pés e pernas vermelhos</b>; cabelo raspado na frente.</div></div></div>
+    <div class="flip" onclick="this.classList.toggle('on')"><div class="inner"><div class="face front">Yanomami<small>onde vivem? adornos?</small></div><div class="face back">Amazônia, <b>fronteira Brasil–Venezuela</b>. Geométricos vermelho/preto + <b>penas presas por perfurações</b> (nariz, orelhas, lábios). Cerimônias e rituais.</div></div></div>
+  </div>
+  <div class="postit">📌 <b>Dica de prova:</b> decore pela "marca registrada": <b>círculos</b> = karajá · <b>rosto vermelho + cabelo raspado</b> = kayapó xikrin · <b>penas e perfurações</b> = yanomami · <b>jabuti, macaco, favo</b> = asurini.</div>
+
+  <div class="sec"><span class="pill u7">Unidade 7</span><h2>🔷 O corpo entre planos: Cubismo</h2></div>
+  <div class="grid">
+    <div class="card u7"><h3>🔷 O que é o Cubismo</h3><ul>
+      <li>Começa nos <b>primeiros anos do século XX, na França</b>, em tempos de mudança (Primeira Guerra).</li>
+      <li>Rompe com a perfeição das formas e com a cópia do real.</li>
+      <li>Intenção: <b>vários ângulos num único plano</b> (frente e perfil juntos), formas <b>fragmentadas</b>, proporções alteradas.</li></ul></div>
+    <div class="card u7"><h3>✅ 4 características</h3><ul>
+      <li><b>Tratamento geométrico</b> de objetos, corpo e natureza.</li>
+      <li><b>Geometrização</b> de formas e volumes.</li>
+      <li><b>Rompimento com a perspectiva</b>.</li>
+      <li>Valorização do <b>exercício mental</b> (expressar ideias, não só observar).</li></ul></div>
+    <div class="card u7"><h3>🎭 Picasso & Braque</h3><ul>
+      <li><b>As damas d'Avignon</b> (Picasso, <b>1907</b>) = marco inicial: linhas retas, máscaras africanas, corpos facetados.</li>
+      <li><b>Violino e clarinete em cima da mesa</b> (Braque, 1913): vários ângulos ao mesmo tempo; jornal/partitura ("Bach"), textura de madeira.</li>
+      <li>Os dois = <b>principais criadores</b> do Cubismo.</li></ul></div>
+    <div class="card u7"><h3>🎨 Picasso (1881–1973)</h3><ul>
+      <li><b>Multiartista</b> espanhol (poeta, escultor, pintor, ceramista, gravurista); famoso em vida.</li>
+      <li><b>Fase azul</b>: solidão, morte, pobreza. <b>Fase rosa</b>: paixão, alegria, amor. <b>Fase africana</b>: arte tribal → início do Cubismo.</li></ul></div>
+    <div class="card u7"><h3>⚙️ Fernand Léger (1881–1955)</h3><ul>
+      <li>Argentan (Normandia) → Paris 1900; "Ruche" (1908, amigo de Chagall); conhece Picasso e Braque em <b>1911</b>.</li>
+      <li>Front em 1914 → depois, <b>máquinas, engrenagens, tanques</b>.</li>
+      <li>Exílio nos EUA; volta em 1945 (vitrais, painel da ONU); <b>A Grande Parada (1954)</b>.</li>
+      <li>Obras da abertura: <b>O cachorro na bola</b> (1953/54) e <b>Soldados jogando cartas</b> (1917).</li></ul></div>
+    <div class="card u7"><h3>🇧🇷 Tarsila do Amaral (1886–1973)</h3><ul>
+      <li>Brasileiros <b>não aderiram</b> ao Cubismo, mas há <b>influência</b>: formas geométricas em <b>São Paulo (1924)</b>.</li>
+      <li>Autorretrato cubista (atividade): rosto de <b>vários ângulos</b>, recorte e colagem num <b>mesmo plano</b>.</li></ul></div>
+  </div>
+
+  <div class="sec"><span class="pill u7">Unidade 7</span><h2>⚖️ Analítico × Sintético</h2></div>
+  <table class="tabela">
+    <thead><tr><th></th><th>Cubismo analítico</th><th>Cubismo sintético</th></tr></thead>
+    <tbody>
+      <tr><td><b>Ano</b></td><td>1910</td><td>1913</td></tr>
+      <tr><td><b>Ideia</b></td><td>Estrutura e <b>decomposição</b> dos objetos; tudo fragmentado</td><td><b>Reação</b> ao excesso de fragmentação; traz realidade de volta</td></tr>
+      <tr><td><b>Cores</b></td><td><b>Monocromáticas</b>: marrom, cinza, ocre</td><td><b>Mais fortes</b></td></tr>
+      <tr><td><b>Técnica</b></td><td>Pintura fragmentada</td><td><b>Colagem</b> de materiais do cotidiano (jornal, madeira, couro); objetos reais</td></tr>
+      <tr><td><b>Ângulos</b></td><td>Vários</td><td>Geralmente <b>um ângulo só</b></td></tr>
+      <tr><td><b>Exemplos</b></td><td><i>O poeta</i> (Picasso, 1911)</td><td><i>Prato de frutas e ás de paus</i> (Braque, 1913); <i>Guitarra e Jornal</i> (Picasso, 1913)</td></tr>
+    </tbody>
+  </table>
+  <div class="peg">⚠️ <b>Pegadinha:</b> "sintético" não quer dizer "simples": é o que <b>cola coisas reais</b> no quadro. "Analítico" é o que <b>analisa e despedaça</b>.</div>
+
+  <div class="sec"><span class="pill u7">Unidade 7</span><h2>🕰️ Linha do tempo rápida</h2></div>
+  <div class="tl">
+    <div class="tl-item"><div class="ano">1907</div>As damas d'Avignon (marco inicial)</div>
+    <div class="tl-item"><div class="ano">1910</div>Cubismo analítico</div>
+    <div class="tl-item"><div class="ano">1911</div>O poeta; Léger conhece Picasso e Braque</div>
+    <div class="tl-item"><div class="ano">1913</div>Cubismo sintético: Violino e clarinete; Guitarra e Jornal; Prato de frutas</div>
+    <div class="tl-item"><div class="ano">1914</div>Léger vai à guerra</div>
+    <div class="tl-item"><div class="ano">1917</div>Soldados jogando cartas</div>
+    <div class="tl-item"><div class="ano">1924</div>São Paulo (Tarsila)</div>
+    <div class="tl-item"><div class="ano">1945</div>Léger volta à França</div>
+    <div class="tl-item"><div class="ano">1954</div>A Grande Parada; O cachorro na bola (1953/54)</div>
+    <div class="tl-item"><div class="ano">1955</div>Morre Léger</div>
+    <div class="tl-item"><div class="ano">1973</div>Morrem Picasso e Tarsila</div>
+  </div>
+
+  <div class="sec"><span class="pill u7">Unidade 7</span><h2>🩰 Dança: corpo, movimento, som e espaço</h2></div>
+  <div class="grid">
+    <div class="card u7"><h3>🩰 4 elementos</h3><ul><li><b>Movimento</b> (gestos e ações: andar, cair, girar, piscar…)</li><li><b>Corpo</b> (qualquer corpo pode dançar)</li><li><b>Espaço</b></li><li><b>Som</b> (música, respiração, pés no chão, palmas, arrastar)</li></ul></div>
+    <div class="card u7"><h3>📐 3 áreas espaciais do corpo</h3><ul><li><b>Alta</b> = cabeça</li><li><b>Média</b> = quadril</li><li><b>Baixa</b> = pés</li><li>O corpo é articulado: as áreas se alternam.</li></ul></div>
+    <div class="card u7"><h3>🧭 3 dimensões do espaço</h3><ul><li><b>Amplitude</b> = horizontal</li><li><b>Comprimento</b> = vertical</li><li><b>Profundidade</b> = frente, lados, diagonais</li></ul></div>
+    <div class="card u7"><h3>🧠 Consciência corporal</h3><ul><li>Conhecer o <b>próprio corpo</b>, habilidades e limitações.</li><li>Desenvolve-se com <b>respiração, alongamento e força</b>.</li><li>Faltar causa problemas de <b>postura, equilíbrio</b>, direção e espaço.</li><li>NÃO é "dançar certinho no ritmo".</li></ul></div>
+    <div class="card u7"><h3>🎲 Jogos do livro</h3><ul><li><b>Twister</b>: cada cor/forma no chão = uma parte do corpo (pontos de apoio).</li><li><b>Improviso em duplas</b>: esticar, dobrar, rolar, saltar… sem perder o <b>contato visual</b>.</li></ul></div>
+  </div>
+  <div class="postit">📌 <b>Dica de prova:</b> ÁREAS têm três alturas (alta/média/baixa) e DIMENSÕES têm três direções (amplitude/comprimento/profundidade). Se a pergunta falar em "cabeça, quadril, pés" é ÁREA; se falar em "horizontal, vertical, diagonal" é DIMENSÃO.</div>
+
+  <div class="sec"><h2>📚 Glossário</h2></div>
+  <div class="gloss">
+    <div><b>Adorno</b> — enfeite usado no corpo (penas, colares, pinturas).</div>
+    <div><b>Grafismo</b> — padrão gráfico (linhas, formas) de uma pintura corporal.</div>
+    <div><b>Etnia</b> — povo com cultura, língua e tradições próprias.</div>
+    <div><b>Urucum</b> — semente vermelha; tinta vermelha.</div>
+    <div><b>Jenipapo</b> — fruto cuja polpa verde dá a tinta preta.</div>
+    <div><b>Maraca</b> — chocalho de cabaça seca, sementes e pedras.</div>
+    <div><b>Zunidor</b> — instrumento que zune ao ser girado no ar.</div>
+    <div><b>Perspectiva</b> — técnica de dar profundidade a um desenho; o Cubismo rompe com ela.</div>
+    <div><b>Geometrizar</b> — transformar formas em figuras geométricas.</div>
+    <div><b>Facetado</b> — com várias faces/lados, como uma pedra lapidada.</div>
+    <div><b>Monocromático</b> — de uma cor só (ou tons parecidos).</div>
+    <div><b>Colagem</b> — colar materiais reais (jornal, madeira) na obra.</div>
+    <div><b>Coreografia</b> — sequência de movimentos organizada no espaço.</div>
+    <div><b>Fonte sonora</b> — de onde o som vem (música, corpo, respiração).</div>
+    <div><b>Releitura</b> — recriar uma obra de outro jeito (ex.: releitura cubista).</div>
+  </div>
+
+  <div class="fim" id="fim">
+    <h3 id="fim-h3">🔒 Próxima etapa: Simulado</h3>
+    <p id="fim-txt">Role até aqui e confirme a leitura para destravar o Simulado.</p>
+    <button id="btn-li" onclick="confirmarLeitura()" disabled>✅ Li o resumo até o fim</button>
+    <a class="btn off" id="btn-prox" href="simulado.html">📝 Pronto para o Simulado!</a>
+  </div>
+
+  <div class="rodape">Feito com carinho para o jovem aprendiz. 🥁</div>
+</div>
+
+<div class="modal-bg" id="lock">
+  <div class="modal">
+    <div class="big">🔒</div>
+    <p><b>Esta etapa ainda está trancada.</b></p>
+    <p id="lock-txt">Para abrir o Resumo, envie o Quiz.</p>
+    <a href="index.html">Voltar ao início</a>
+  </div>
+</div>
+
+<script>
+/* ====== TRILHA COM CADEADOS (módulo comum do kit) ====== */
+var KIT='compasso_formas';
+var TRILHA=[
+ {id:'leitura', chave:KIT+'_leitura_v1', nome:'Leitura Guiada', arquivo:'leitura-guiada.html', emoji:'📖'},
+ {id:'quiz', chave:KIT+'_quiz_v1', nome:'Quiz', arquivo:'quiz.html', emoji:'🎯'},
+ {id:'resumo', chave:KIT+'_resumo_v1', nome:'Resumo', arquivo:'resumo.html', emoji:'🗺️'},
+ {id:'simulado', chave:KIT+'_simulado_v1', nome:'Simulado', arquivo:'simulado.html', emoji:'📝'}
+];
+function lerJSON(k){ try{ var s=localStorage.getItem(k); return s?JSON.parse(s):null; }catch(e){ return null; } }
+function trilhaLiberada(){ var t=lerJSON(KIT+'_trilha_v1'); return !!(t&&t.liberadoPelosPais); }
+function etapaConcluida(id){ var e=TRILHA.filter(function(t){return t.id===id;})[0]; var d=lerJSON(e.chave); return !!(d&&d.concluido); }
+function podeAbrir(id){ var idx=TRILHA.map(function(t){return t.id;}).indexOf(id); if(idx<=0||trilhaLiberada()) return true; return etapaConcluida(TRILHA[idx-1].id); }
+function marcarNav(){
+  var links=document.querySelectorAll('#nav a[data-etapa]');
+  for(var i=0;i<links.length;i++){ var id=links[i].getAttribute('data-etapa'); if(!podeAbrir(id)){ links[i].classList.add('lock'); links[i].textContent='🔒 '+links[i].textContent.replace('🔒 ',''); } else { links[i].classList.remove('lock'); links[i].textContent=links[i].textContent.replace('🔒 ',''); } }
+}
+function checarTrava(){
+  if(podeAbrir('resumo')) return true;
+  var L=lerJSON(KIT+'_leitura_v1');
+  document.getElementById('lock-txt').textContent=(L&&L.concluido)?'Para abrir o Resumo, envie o Quiz.':'Para abrir o Resumo, conclua a Leitura Guiada e envie o Quiz.';
+  document.getElementById('lock').classList.add('show');
+  document.querySelector('.wrap').style.filter='blur(6px)';
+  return false;
+}
+
+/* ====== ESTADO DO RESUMO ====== */
+var CHAVE=KIT+'_resumo_v1'; var mem={}; var estado=carregar();
+function carregar(){ try{ var s=localStorage.getItem(CHAVE); if(s) return JSON.parse(s);}catch(e){ if(mem[CHAVE]) return JSON.parse(mem[CHAVE]); } return {rolagemMax:0}; }
+function salvar(){ var s=JSON.stringify(estado); try{ localStorage.setItem(CHAVE,s);}catch(e){ mem[CHAVE]=s; } document.getElementById('salvo').textContent='📏 Rolagem máxima: '+Math.round(estado.rolagemMax||0)+'%'; }
+function medirRolagem(){
+  var h=document.documentElement; var total=h.scrollHeight-h.clientHeight; var pct= total<=0?100:Math.min(100,(window.scrollY||h.scrollTop)/total*100);
+  if(pct>(estado.rolagemMax||0)){ estado.rolagemMax=pct; salvar(); }
+  var b=document.getElementById('btn-li'); if(!estado.concluido && (estado.rolagemMax||0)>=90){ b.disabled=false; }
+}
+function confirmarLeitura(){ if(estado.concluido) return; estado.concluido=true; estado.concluidoEm=new Date().toISOString(); salvar(); atualizarFim(); }
+function atualizarFim(){
+  var h3=document.getElementById('fim-h3'), txt=document.getElementById('fim-txt'), b=document.getElementById('btn-li'), a=document.getElementById('btn-prox');
+  if(estado.concluido||trilhaLiberada()){ h3.textContent='✅ Resumo lido — Simulado destravado!'; txt.textContent=estado.concluido?'Agora encare o Simulado valendo, como se fosse a prova.':'Trilha liberada pelos pais.'; b.disabled=true; b.textContent=estado.concluido?'✅ Resumo concluído':'✅ Li o resumo até o fim'; a.classList.remove('off'); }
+  else { h3.textContent='🔒 Próxima etapa: Simulado'; txt.textContent=(estado.rolagemMax||0)>=90?'Confirme a leitura para destravar o Simulado.':'Role até o fim da página para habilitar o botão (rolagem: '+Math.round(estado.rolagemMax||0)+'%).'; a.classList.add('off'); }
+  marcarNav();
+}
+function exportar(){ var blob=new Blob([JSON.stringify(estado,null,2)],{type:'application/json'}); var a=document.createElement('a'); a.href=URL.createObjectURL(blob); a.download='resumo_compasso-das-formas.json'; a.click(); }
+
+if(checarTrava()){ salvar(); atualizarFim(); window.addEventListener('scroll',function(){ medirRolagem(); atualizarFim(); }); setTimeout(medirRolagem,300); } else { marcarNav(); }
+</script>
+</body>
+</html>
